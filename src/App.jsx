@@ -17,14 +17,14 @@ export default function DevHub() {
       return (
         saved || {
           background: "https://mchiodi-focus.vercel.app/background.png",
-          accentColor: "#2563eb",
+          accentColor: "#ff5555",
           youtubeId: "jfKfPfyJRdk",
         }
       );
     } catch {
       return {
         background: "https://mchiodi-focus.vercel.app/background.png",
-        accentColor: "#2563eb",
+        accentColor: "#ff5555",
         youtubeId: "jfKfPfyJRdk",
       };
     }
