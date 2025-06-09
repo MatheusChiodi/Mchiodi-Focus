@@ -1,16 +1,57 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import { Youtube, Github, Linkedin } from "lucide-react";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const shapes = useMemo(
+    () =>
+      Array.from({ length: 12 }).map(() => ({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 8 + 6,
+        duration: Math.random() * 20 + 15,
+      })),
+    [],
+  );
 
   const enterApp = () => {
     navigate("/app", { state: { fromLanding: true } });
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#0f0f0f] via-[#151515] to-[#0f0f0f] font-sans text-white">
+    <motion.div
+      className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#0f0f0f] via-[#151515] to-[#0f0f0f] font-sans text-white"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden perspective-[800px]">
+        {shapes.map((s, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-[#FF5555]/20 blur-3xl"
+            style={{
+              width: s.size * 16,
+              height: s.size * 16,
+              top: `${s.y}%`,
+              left: `${s.x}%`,
+            }}
+            animate={{
+              rotateX: 360,
+              rotateY: 360,
+              opacity: [0.4, 0.8, 0.4],
+            }}
+            transition={{
+              repeat: Infinity,
+              duration: s.duration,
+              ease: 'linear',
+            }}
+          />
+        ))}
+      </div>
       <header className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4 backdrop-blur-md">
         <div className="text-xl font-bold text-white">
           MChiodi<span className="text-[#FF5555]">Focus</span>
@@ -185,6 +226,6 @@ export default function LandingPage() {
           reservados.
         </motion.div>
       </footer>
-    </div>
+    </motion.div>
   );
 }
