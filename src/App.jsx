@@ -132,21 +132,11 @@ export default function DevHub() {
 
   return (
     <div
-      className="relative min-h-screen w-full bg-cover bg-center bg-no-repeat text-white"
+      className="relative min-h-screen w-full max-w-´[1920px] mx-auto bg-cover bg-center bg-no-repeat text-white overflow-hidden"
       style={{ backgroundImage: "url('/studio-ghibli-style.jpg')" }}
     >
       {/* Fundo escuro com blur */}
       <div className="absolute inset-0 z-0 bg-black/40 backdrop-blur-md" />
-
-      {/* Cabeçalho */}
-      <header className="relative z-10 flex items-center justify-between border-b border-neutral-800 bg-neutral-900/70 p-4 backdrop-blur-md">
-        <h1 className="text-lg font-semibold">DevHub</h1>
-        <div className="flex items-center gap-4 text-sm text-neutral-400">
-          <span>📍 Araraquara - SP</span>
-          <span>💵 USD 5,24</span>
-          <span>🕒 08:30 AM</span>
-        </div>
-      </header>
 
       {/* Controle de layout */}
       <LayoutControl setLayoutMode={setLayoutMode} showToast={showToast} />
@@ -165,7 +155,6 @@ export default function DevHub() {
       {/* Dock */}
       <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 
-      {/* Toast flutuante */}
       <Toast message={toastMessage} />
     </div>
   );
