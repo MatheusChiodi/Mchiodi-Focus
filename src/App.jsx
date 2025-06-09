@@ -75,11 +75,13 @@ export default function DevHub() {
 
   return (
     <div
-      className="relative min-h-screen w-full max-w-´[1920px] mx-auto bg-cover bg-center bg-no-repeat text-white overflow-hidden"
-      style={{ backgroundImage: "url('https://mchiodi-focus.vercel.app/background.png')" }}
+      className="backgroundImage max-w-´[1920px] relative mx-auto min-h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat text-white"
+      style={{
+        backgroundImage:
+          "url('https://mchiodi-focus.vercel.app/background.png')",
+      }}
     >
-
-      <div className="absolute inset-0 z-0 bg-black/40 backdrop-blur-md" />
+      <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
 
       <WindowManager
         apps={apps}

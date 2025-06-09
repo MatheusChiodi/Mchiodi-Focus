@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function Dock({ apps, openApps, handleAppClick }) {
   return (
-    <nav className="fixed bottom-4 left-1/2 z-20 flex h-[50px] -translate-x-1/2 items-center gap-4 rounded-xl border border-white/10 bg-white/10 px-6 shadow-xl backdrop-blur-lg">
+    <nav className="fixed bottom-2 left-1/2 z-20 flex h-[50px] -translate-x-1/2 items-center gap-4 rounded-xl px-6">
       {apps.map((app) => {
         const isOpen = openApps[app.id]?.open;
         const isVisible = openApps[app.id]?.visible;
@@ -11,8 +11,8 @@ export function Dock({ apps, openApps, handleAppClick }) {
           <motion.button
             key={app.id}
             onClick={() => handleAppClick(app.id)}
-            className={`group relative flex flex-col items-center rounded-full p-1 transition-all duration-500 hover:scale-110 ${
-              isVisible ? "bg-white text-black/80 shadow-xl" : ""
+            className={`group relative flex flex-col items-center rounded-full p-2 transition-all duration-500 hover:scale-110 ${
+              isVisible ? "bg-white text-black/80 shadow-xl" : "hover:bg-neutral-800 "
             }`}
           >
             <div>{app.icon}</div>
