@@ -130,9 +130,7 @@ export default function DevHub() {
 
         <Toast message={toastMessage} />
 
-        {visibleAppsCount >= 3 && (
-          <div className="h-[100px] w-full" aria-hidden="true" />
-        )}
+        <div className="h-[100px] w-full" aria-hidden="true" />
       </div>
     </>
   );
