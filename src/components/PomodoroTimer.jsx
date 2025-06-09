@@ -81,45 +81,42 @@ export function PomodoroTimer() {
   const percent = (time / MODES[mode].duration) * 100;
 
   return (
-    <div className="flex flex-col items-center justify-center px-4 text-white">
+    <motion.div
+      className={`relative w-full max-w-md rounded-xl p-8 text-center shadow-2xl transition-all ${MODES[mode].color}`}
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+    >
+      <h2 className="mb-4 text-lg font-bold uppercase tracking-wider">
+        {MODES[mode].label}
+      </h2>
 
-      <motion.div
-        className={`relative w-full max-w-md rounded-xl p-8 text-center shadow-2xl transition-all ${MODES[mode].color}`}
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-      >
-        <h2 className="mb-4 text-lg font-bold uppercase tracking-wider">
-          {MODES[mode].label}
-        </h2>
+      <div className="mb-6 font-mono text-6xl">{formatTime(time)}</div>
 
-        <div className="mb-6 font-mono text-6xl">{formatTime(time)}</div>
+      <div className="mb-6 flex justify-center gap-4">
+        <button
+          onClick={() => setIsRunning(!isRunning)}
+          className="rounded-full bg-white p-3 text-black transition hover:scale-110"
+          title={isRunning ? "Pausar" : "Iniciar"}
+        >
+          {isRunning ? <Pause /> : <Play />}
+        </button>
+        <button
+          onClick={handleReset}
+          className="rounded-full bg-white p-3 text-black transition hover:scale-110"
+          title="Resetar"
+        >
+          <RotateCw />
+        </button>
+      </div>
 
-        <div className="mb-6 flex justify-center gap-4">
-          <button
-            onClick={() => setIsRunning(!isRunning)}
-            className="rounded-full bg-white p-3 text-black transition hover:scale-110"
-            title={isRunning ? "Pausar" : "Iniciar"}
-          >
-            {isRunning ? <Pause /> : <Play />}
-          </button>
-          <button
-            onClick={handleReset}
-            className="rounded-full bg-white p-3 text-black transition hover:scale-110"
-            title="Resetar"
-          >
-            <RotateCw />
-          </button>
-        </div>
-
-        <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
-          <motion.div
-            className="h-full bg-white"
-            style={{ width: `${percent}%` }}
-            transition={{ duration: 0.3 }}
-          />
-        </div>
-      </motion.div>
-    </div>
+      <div className="h-2 w-full overflow-hidden rounded-full bg-white/20">
+        <motion.div
+          className="h-full bg-white"
+          style={{ width: `${percent}%` }}
+          transition={{ duration: 0.3 }}
+        />
+      </div>
+    </motion.div>
   );
 }

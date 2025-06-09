@@ -83,7 +83,7 @@ export function CalendarApp() {
           return (
             <button
               key={day.toString()}
-              className={`relative flex h-20 flex-col items-center justify-start overflow-hidden rounded-md border px-2 py-1 text-sm transition-all hover:border-blue-400 ${
+              className={`relative flex h-20 flex-col items-center justify-start overflow-hidden rounded-md border px-2 py-1 text-sm transition-all hover:border-[var(--accent-color)] ${
                 isSameMonth(day, currentMonth)
                   ? "bg-white/10"
                   : "bg-black/10 text-gray-400"
@@ -110,13 +110,21 @@ export function CalendarApp() {
   return (
     <div className="flex h-full w-full flex-col gap-4 overflow-auto p-4 text-white">
       <div className="flex items-center justify-between">
-        <button onClick={prevMonth} className="text-lg hover:text-blue-400">
+        <button
+          onClick={prevMonth}
+          title="Mês anterior"
+          className="text-lg text-white transition-colors hover:text-[var(--accent-color)]"
+        >
           ←
         </button>
         <h2 className="text-lg font-bold tracking-wide md:text-xl">
           {format(currentMonth, "MMMM yyyy")}
         </h2>
-        <button onClick={nextMonth} className="text-lg hover:text-blue-400">
+        <button
+          onClick={nextMonth}
+          title="Próximo mês"
+          className="text-lg text-white transition-colors hover:text-[var(--accent-color)]"
+        >
           →
         </button>
       </div>

@@ -28,21 +28,21 @@ export function GoalsApp() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950/80 p-6 shadow-2xl backdrop-blur-xl">
+    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">🎯 Metas</h2>
 
-      <div className="mb-4 flex gap-2">
+      <div className="mb-4 flex flex-wrap gap-2">
         <input
           type="text"
           placeholder="Nova meta..."
-          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && addGoal()}
+          onKeyDown={(e) => e.key === "Enter" && addGoal()}
         />
         <button
           onClick={addGoal}
-          className="rounded-lg bg-blue-500 px-4 py-2 text-white transition hover:bg-blue-400"
+          className="w-full md:w-[100px] md:flex-0 rounded-lg bg-blue-500 px-4 py-2 text-white transition hover:brightness-90"
         >
           Adicionar
         </button>
@@ -67,7 +67,9 @@ export function GoalsApp() {
                   min="0"
                   max="100"
                   value={goal.progress}
-                  onChange={(e) => updateProgress(goal.id, Number(e.target.value))}
+                  onChange={(e) =>
+                    updateProgress(goal.id, Number(e.target.value))
+                  }
                   className="flex-1"
                 />
                 <span className="w-12 text-right">{goal.progress}%</span>
@@ -84,10 +86,11 @@ export function GoalsApp() {
             </li>
           ))
         ) : (
-          <li className="py-6 text-center text-neutral-500">Nenhuma meta adicionada.</li>
+          <li className="py-6 text-center text-neutral-500">
+            Nenhuma meta adicionada.
+          </li>
         )}
       </ul>
     </div>
   );
 }
-

@@ -65,8 +65,8 @@ export function YoutubePlayer({ defaultVideoId = "jfKfPfyJRdk", settings }) {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
-      <div className="aspect-video w-full max-h-[250px] overflow-hidden rounded-2xl border border-white/10 bg-black shadow-inner">
+    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-2 shadow-2xl backdrop-blur-xl">
+      <div className="aspect-video max-h-[200px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-inner">
         <YouTube
           videoId={videoId}
           opts={{
@@ -83,14 +83,14 @@ export function YoutubePlayer({ defaultVideoId = "jfKfPfyJRdk", settings }) {
         <input
           type="text"
           placeholder="Cole o link ou ID do vídeo do YouTube"
-          className="flex-1 rounded-md border border-white/10 bg-neutral-800/70 px-4 py-2 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 rounded-md border border-white/10 bg-neutral-800/70 px-4 py-2 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
         <button
           onClick={handleChangeVideo}
-          className="rounded-md px-4 py-2 text-white shadow-md transition"
-          style={{ backgroundColor: 'var(--accent-color)' }}
+          className="rounded-md px-4 py-2 text-white shadow-md transition hover:brightness-90"
+          style={{ backgroundColor: "var(--accent-color)" }}
         >
           Trocar vídeo
         </button>
@@ -123,7 +123,7 @@ export function YoutubePlayer({ defaultVideoId = "jfKfPfyJRdk", settings }) {
             value={volume}
             onChange={handleVolumeChange}
             className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/30 transition"
-            style={{ accentColor: 'var(--accent-color)' }}
+            style={{ accentColor: "var(--accent-color)" }}
           />
         </div>
       </div>

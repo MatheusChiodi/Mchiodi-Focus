@@ -18,7 +18,7 @@ export function MacWindow({
       initial={{ opacity: 0, scale: 0.98, y: 20 }}
       exit={{ opacity: 0, scale: 0.95, y: -20 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`max-w-[1020px] w-[100%]  overflow-hidden rounded-xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-0 shadow-2xl backdrop-blur-xl`}
+      className={`mt-10 h-[420px] max-w-[1020px] w-[100%] flex flex-col overflow-hidden rounded-xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-0 shadow-2xl backdrop-blur-xl`}
     >
       <div className="flex items-center justify-between border-b border-neutral-700 bg-neutral-800/60 px-4 py-3">
         <div className="flex gap-2">
@@ -42,7 +42,7 @@ export function MacWindow({
       </div>
 
       <div
-        className={`flex flex-col justify-center overflow-auto p-3 md:h-[75vh]`}
+        className="p-3 flex justify-center items-center h-[calc(100%-28px)] overflow-auto"
       >
         {children}
       </div>

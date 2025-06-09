@@ -4,6 +4,7 @@ import { Toast } from "./components/Toast";
 import { LayoutControl } from "./components/LayoutControl";
 import { WindowManager } from "./components/WindowManager";
 import { createApps } from "./data/apps";
+import { Header } from "./components/Header";
 
 export default function DevHub() {
   const [settings, setSettings] = useState(() => {
@@ -99,35 +100,40 @@ export default function DevHub() {
     }));
   };
 
+  const visibleAppsCount = Object.values(openApps).filter(
+    (app) => app.open && app.visible,
+  ).length;
+
   const [toastMessage, setToastMessage] = useState("");
-  const showToast = (message) => {
-    setToastMessage(message);
-    setTimeout(() => setToastMessage(""), 2500);
-  };
 
   return (
-    <div
-      className="backgroundImage max-w-´[1920px] relative mx-auto min-h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat text-white"
-      style={{
-        backgroundImage: `url('${settings.background}')`,
-      }}
-    >
-      <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
+    <>
+      <Header />
+      <div
+        className="backgroundImage max-w-´[1920px] relative mx-auto h-screen w-full overflow-auto bg-cover bg-center bg-no-repeat text-white"
+        style={{
+          backgroundImage: `url('${settings.background}')`,
+        }}
+      >
+        <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
 
-      <WindowManager
-        apps={apps}
-        openApps={openApps}
-        closeApp={closeApp}
-        minimizeApp={minimizeApp}
-        toggleMaximize={toggleMaximize}
-        settings={settings}
-        updateSettings={updateSettings}
-      />
-      <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
+        <WindowManager
+          apps={apps}
+          openApps={openApps}
+          closeApp={closeApp}
+          minimizeApp={minimizeApp}
+          toggleMaximize={toggleMaximize}
+          settings={settings}
+          updateSettings={updateSettings}
+        />
+        <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 
-      <Toast message={toastMessage} />
+        <Toast message={toastMessage} />
 
-      <div className="h-[100px] md:h-0"></div>
-    </div>
+        {visibleAppsCount >= 3 && (
+          <div className="h-[100px] w-full" aria-hidden="true" />
+        )}
+      </div>
+    </>
   );
 }

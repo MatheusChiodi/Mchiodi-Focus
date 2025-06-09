@@ -105,22 +105,22 @@ export function TaskManager() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950/80 p-6 shadow-2xl backdrop-blur-xl">
+    <div className="mt-16 md:mt-0 w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">
         🧾 Lista de Tarefas
       </h2>
 
-      <div className="mb-4 flex flex-col md:flex-row gap-2">
+      <div className="mb-4 flex flex-col gap-2 md:flex-row">
         <input
           type="text"
           placeholder={
             editing ? "Editando tarefa..." : "Digite uma nova tarefa..."
           }
-          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="md:w-[200px] flex items-center gap-2">
+        <div className="flex items-center gap-2 md:w-[200px]">
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
@@ -132,7 +132,7 @@ export function TaskManager() {
           </select>
           <button
             onClick={addTask}
-            className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
+            className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:brightness-90"}`}
           >
             {editing ? (
               <Edit3 size={16} className="inline-block" />
@@ -231,7 +231,7 @@ export function TaskManager() {
                 />
                 <button
                   onClick={() => addSubtask(task.id)}
-                  className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-500"
+                  className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:brightness-90"
                 >
                   Add
                 </button>

@@ -106,24 +106,22 @@ export function NotesApp() {
   const allFolders = ["Todas", ...new Set(notes.map((n) => n.folder))];
 
   return (
-    <div className="flex h-[55vh] w-full flex-col gap-4 overflow-auto text-white sm:flex-row md:h-[75vh]">
+    <div className="flex w-full flex-col gap-4 overflow-auto text-white sm:flex-row">
       {/* Lateral */}
-      <div className="w-full rounded-lg border border-white/10 bg-neutral-900/70 p-4 sm:w-1/3">
+      <div className="w-full rounded-lg border border-white/10 bg-neutral-900/70 p-2 sm:w-1/3">
         <div className="mb-3 flex gap-2">
           <button
             onClick={exportBackup}
-            className="flex items-center gap-1 rounded bg-blue-700 px-2 py-1 text-xs hover:bg-blue-800"
+            className="flex flex-1 items-center justify-center gap-1 rounded bg-blue-700 px-2 py-1 text-xs hover:brightness-90"
           >
-            <Download size={14} /> Backup
+            <Download size={14} />
           </button>
-          <label className="flex cursor-pointer items-center gap-1 rounded bg-green-700 px-2 py-1 text-xs hover:bg-green-800">
+          <label className="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded bg-green-700 px-2 py-1 text-xs hover:bg-green-800">
             <Upload size={14} />
-            Importar
             <input type="file" hidden onChange={importBackup} />
           </label>
         </div>
         <div className="mb-4 flex items-center gap-2">
-          <Search size={16} />
           <input
             type="text"
             placeholder="Buscar..."
@@ -133,7 +131,7 @@ export function NotesApp() {
           />
           <button
             onClick={createNote}
-            className="rounded bg-blue-600 px-2 py-1 text-sm transition hover:bg-blue-700"
+            className="rounded bg-blue-600 px-2 py-1 text-sm transition hover:brightness-90"
           >
             <Plus size={16} />
           </button>
@@ -144,7 +142,9 @@ export function NotesApp() {
               key={f}
               onClick={() => setSelectedFolder(f)}
               className={`rounded px-2 py-1 text-xs ${
-                selectedFolder === f ? "bg-blue-600" : "bg-neutral-800"
+                selectedFolder === f
+                  ? "bg-blue-600"
+                  : "bg-neutral-800 hover:bg-neutral-700"
               }`}
             >
               {f}
@@ -180,13 +180,13 @@ export function NotesApp() {
       </div>
 
       {/* Editor */}
-      <div className="flex w-full flex-col gap-4 rounded-lg border border-white/10 bg-neutral-900/70 p-4 sm:w-2/3">
+      <div className="md:h-[60vh] overflow-auto flex w-full flex-col gap-4 rounded-lg border border-white/10 bg-neutral-900/70 p-4 sm:w-2/3">
         {activeNote ? (
           <>
             <textarea
               value={markdown}
               onChange={(e) => setMarkdown(e.target.value)}
-              className="h-40 w-full resize-none rounded bg-neutral-800 p-2 font-mono text-sm"
+              className="relative h-40 w-full resize-none rounded bg-neutral-800 p-2 font-mono text-sm"
             />
             <div className="flex flex-wrap gap-2">
               <div className="flex flex-1 items-center">
@@ -337,7 +337,7 @@ export function NotesApp() {
             </div>
           </>
         ) : (
-          <div className="flex w-full items-center justify-center text-center text-neutral-400 md:h-screen">
+          <div className="flex w-full items-center justify-center text-center text-neutral-400 md:h-[50vh]">
             Selecione ou crie uma nota
           </div>
         )}

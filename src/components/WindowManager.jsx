@@ -18,7 +18,7 @@ export function WindowManager({
 
   return (
     <main
-      className={`relative z-10 mt-[-25px] p-6 ${
+      className={`relative z-10 mt-[-15px] p-6 ${
         isSingleVisible
           ? "flex flex-col items-center justify-center"
           : "grid gap-4 md:grid-cols-2"
