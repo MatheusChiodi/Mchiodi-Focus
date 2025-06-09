@@ -76,12 +76,11 @@ export default function DevHub() {
   return (
     <div
       className="relative min-h-screen w-full max-w-´[1920px] mx-auto bg-cover bg-center bg-no-repeat text-white overflow-hidden"
-      style={{ backgroundImage: "url('/studio-ghibli-style.jpg')" }}
+      style={{ backgroundImage: "url('https://mchiodi-focus.vercel.app/background.png')" }}
     >
-      {/* Fundo escuro com blur */}
+
       <div className="absolute inset-0 z-0 bg-black/40 backdrop-blur-md" />
 
-      {/* Gerenciador de Janelas */}
       <WindowManager
         apps={apps}
         openApps={openApps}
@@ -89,8 +88,6 @@ export default function DevHub() {
         minimizeApp={minimizeApp}
         toggleMaximize={toggleMaximize}
       />
-
-      {/* Dock */}
       <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 
       <Toast message={toastMessage} />
