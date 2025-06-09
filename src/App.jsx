@@ -94,6 +94,8 @@ export default function DevHub() {
       <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 
       <Toast message={toastMessage} />
+
+      <div className="h-[100px] md:h-0"></div>
     </div>
   );
 }

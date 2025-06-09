@@ -12,6 +12,7 @@ import { TaskManager } from "../components/TaskManager";
 import { PomodoroTimer } from "../components/PomodoroTimer";
 import { YoutubePlayer } from "../components/YoutubePlayer";
 import { CalendarApp } from "../components/CalendarApp";
+import { NotesApp } from "../components/NotesApp";
 
 export const apps = [
   {
@@ -30,7 +31,7 @@ export const apps = [
     id: "notes",
     icon: <StickyNote size={22} />,
     name: "Notas",
-    component: () => <div className="p-6 text-white">📝 Notas em breve!</div>,
+    component: () => NotesApp(),
   },
   {
     id: "youtube",
