@@ -132,7 +132,7 @@ export function TaskManager() {
           </select>
           <button
             onClick={addTask}
-            className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:brightness-90"}`}
+            className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-[--accent-color] hover:brightness-90"}`}
           >
             {editing ? (
               <Edit3 size={16} className="inline-block" />
@@ -152,7 +152,7 @@ export function TaskManager() {
           <button
             key={key}
             onClick={() => setFilter(key)}
-            className={`rounded-full px-4 py-2 text-sm transition ${filter === key ? "bg-blue-500 text-white" : "bg-neutral-700 text-white hover:bg-neutral-600"}`}
+            className={`rounded-full px-4 py-2 text-sm transition ${filter === key ? "bg-[--accent-color] text-white" : "bg-neutral-700 text-white hover:bg-neutral-600"}`}
           >
             {label}
           </button>
@@ -231,7 +231,7 @@ export function TaskManager() {
                 />
                 <button
                   onClick={() => addSubtask(task.id)}
-                  className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:brightness-90"
+                  className="rounded bg-[--accent-color] px-3 py-1 text-sm text-white hover:brightness-90"
                 >
                   Add
                 </button>

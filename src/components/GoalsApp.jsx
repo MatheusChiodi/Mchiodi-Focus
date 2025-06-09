@@ -42,7 +42,8 @@ export function GoalsApp() {
         />
         <button
           onClick={addGoal}
-          className="w-full md:w-[100px] md:flex-0 rounded-lg bg-blue-500 px-4 py-2 text-white transition hover:brightness-90"
+          className="w-full md:w-[100px] md:flex-0 rounded-lg px-4 py-2 text-white transition hover:brightness-90"
+          style={{ backgroundColor: "var(--accent-color)" }}
         >
           Adicionar
         </button>
@@ -79,8 +80,9 @@ export function GoalsApp() {
               </div>
               <div className="h-2 w-full rounded-full bg-neutral-700">
                 <div
-                  className="h-full rounded-full bg-blue-500"
-                  style={{ width: `${goal.progress}%` }}
+                  className="h-full rounded-full"
+                  style={{ width: `${goal.progress}%`, backgroundColor: "var(--accent-color)" }}
+                  
                 />
               </div>
             </li>

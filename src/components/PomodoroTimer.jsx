@@ -3,7 +3,7 @@ import { Play, Pause, RotateCw } from "lucide-react";
 import { motion } from "framer-motion";
 
 const MODES = {
-  FOCUS: { label: "Foco", duration: 25 * 60, color: "bg-blue-500" },
+  FOCUS: { label: "Foco", duration: 25 * 60, color: "bg-[--accent-color]" },
   SHORT_BREAK: {
     label: "Pausa Curta",
     duration: 5 * 60,

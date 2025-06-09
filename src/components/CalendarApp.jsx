@@ -87,7 +87,7 @@ export function CalendarApp() {
                 isSameMonth(day, currentMonth)
                   ? "bg-white/10"
                   : "bg-black/10 text-gray-400"
-              } ${isToday ? "border-blue-500" : "border-neutral-800"}`}
+              } ${isToday ? "border-[--accent-color]" : "border-neutral-800"}`}
               onClick={() => setSelectedDate(day)}
             >
               <span className="mb-1 text-sm font-semibold">
@@ -146,7 +146,7 @@ export function CalendarApp() {
             />
             <button
               onClick={handleAddEvent}
-              className="flex items-center justify-center gap-1 rounded bg-green-600 px-4 py-2 text-sm hover:bg-green-700"
+              className="flex items-center justify-center gap-1 rounded bg-[--accent-color] px-4 py-2 text-sm hover:bg-green-700"
             >
               <Plus size={16} /> Adicionar
             </button>
@@ -177,7 +177,7 @@ export function CalendarApp() {
 
               <button
                 onClick={handleShare}
-                className="mt-4 flex items-center gap-1 text-sm text-blue-400 hover:underline"
+                className="mt-4 flex items-center gap-1 text-sm text-[--accent-color] hover:underline"
               >
                 <Share2 size={14} /> Compartilhar eventos do mês
               </button>

@@ -1,20 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Youtube, Github, Linkedin } from "lucide-react";
+import { BackToTop } from "./BackToTop";
+import { DonationButton } from "./DonationButton";
+import PersistentBackground from "./PersistentBackground.jsx";
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const shapes = useMemo(
-    () =>
-      Array.from({ length: 12 }).map(() => ({
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 8 + 6,
-        duration: Math.random() * 20 + 15,
-      })),
-    [],
-  );
 
   const enterApp = () => {
     navigate("/app", { state: { fromLanding: true } });
@@ -26,73 +19,28 @@ export default function LandingPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8 }}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden perspective-[800px]">
-        {shapes.map((s, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-[#FF5555]/20 blur-3xl"
-            style={{
-              width: s.size * 16,
-              height: s.size * 16,
-              top: `${s.y}%`,
-              left: `${s.x}%`,
-            }}
-            animate={{
-              rotateX: 360,
-              rotateY: 360,
-              opacity: [0.4, 0.8, 0.4],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: s.duration,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </div>
-      <header className="flex items-center justify-between border-b border-white/10 bg-black/30 px-6 py-4 backdrop-blur-md">
-        <div className="text-xl font-bold text-white">
-          MChiodi<span className="text-[#FF5555]">Focus</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="#features"
-            className="text-sm transition hover:text-[#FF5555]"
-          >
-            Features
-          </a>
-          <a
-            href="#preview"
-            className="text-sm transition hover:text-[#FF5555]"
-          >
-            Preview
-          </a>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm transition hover:text-[#FF5555]"
-          >
-            <Github size={18} /> GitHub
-          </a>
-        </div>
-      </header>
+      <PersistentBackground />
 
-      {/* Hero */}
-      <section className="relative flex flex-col items-center justify-center px-6 py-32 text-center">
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="flex flex-col items-center justify-center px-6 py-32 text-center md:h-screen"
+      >
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-4 text-5xl font-extrabold leading-tight sm:text-6xl"
+          className="mb-4 w-[80%] text-5xl font-extrabold sm:text-6xl"
         >
-          Stay focused with <span className="text-[#FF5555]">Focus Timer</span>
+          Mantenha o foco com o{" "}
+          <span className="text-[#FF5555]">MChiodi Focus</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mb-8 max-w-2xl text-neutral-400"
         >
@@ -103,90 +51,91 @@ export default function LandingPage() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={enterApp}
-          className="rounded-full bg-[#FF5555] px-6 py-3 font-semibold shadow-xl transition hover:brightness-90"
+          className="rounded-xl bg-[#FF5555] px-8 py-4 text-lg font-semibold transition hover:brightness-90"
         >
           Começar agora →
         </motion.button>
-      </section>
+      </motion.section>
 
-      {/* Features */}
-      <section
+      {/* FEATURES */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
         id="features"
-        className="border-t border-white/10 bg-black/20 px-6 py-24 backdrop-blur-md"
+        className="border-t border-white/10 bg-black/20 px-6 py-24 backdrop-blur-xl"
       >
-        <h2 className="mb-12 text-center text-3xl font-bold">
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-12 text-center text-4xl font-extrabold tracking-tight text-white"
+        >
           Tudo que você precisa, em um só lugar
-        </h2>
+        </motion.h2>
         <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
           {[
             [
               "📝",
               "Gerenciador de Tarefas",
-              "Organize suas tarefas e aumente sua produtividade com um sistema visual simples.",
+              "Organize suas tarefas com um sistema visual simples.",
             ],
             [
               "⏱️",
               "Pomodoro Timer",
-              "Foque por blocos de tempo e aumente sua disciplina usando a técnica Pomodoro.",
+              "Foque com a técnica Pomodoro para aumentar sua disciplina.",
             ],
             [
               "📺",
               "YouTube Player",
-              "Escute lo-fi ou vídeos educativos direto do app, sem distrações.",
+              "Escute lo-fi ou vídeos educativos direto do app.",
             ],
-            [
-              "🎯",
-              "Metas",
-              "Defina metas e acompanhe seu progresso diariamente.",
-            ],
-            [
-              "🌦️",
-              "Clima",
-              "Veja a previsão do tempo direto na interface para planejar seu dia.",
-            ],
-            [
-              "💱",
-              "Cotação",
-              "Veja a cotação do dólar em tempo real, útil para freelancers e devs internacionais.",
-            ],
+            ["🎯", "Metas", "Defina metas e acompanhe seu progresso."],
+            ["🌦️", "Clima", "Veja a previsão do tempo direto na interface."],
+            ["💱", "Cotação", "Veja a cotação do dólar em tempo real."],
           ].map(([icon, title, desc], i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="rounded-xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-sm"
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+              className="rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-6 shadow-xl backdrop-blur-lg transition-transform hover:scale-[1.02]"
             >
               <div className="mb-2 text-3xl">{icon}</div>
-              <h3 className="mb-1 text-lg font-semibold">{title}</h3>
+              <h3 className="mb-1 text-lg font-semibold text-white">{title}</h3>
               <p className="text-sm text-neutral-400">{desc}</p>
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <footer className="border-t border-white/10 bg-black/30 py-10 text-center text-sm text-white">
+      {/* FOOTER */}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="border-t border-white/10 bg-black/30 py-10 text-center text-sm text-white"
+      >
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mx-auto flex max-w-7xl flex-col gap-16 md:flex-row md:justify-between"
+          className="mx-auto flex max-w-7xl flex-col gap-16 px-6 md:flex-row md:justify-between"
         >
-          <div className="flex flex-col gap-4 px-6">
+          <div className="flex flex-col gap-4">
             <h2 className="font-serif text-3xl font-bold transition hover:scale-[1.02]">
               MChiodi <span className="text-[#FF5555]">Focus</span>
             </h2>
-            <p className="text-muted-foreground max-w-sm text-sm text-neutral-500">
-              Uma central de produtividade para desenvolvedores. Organize suas
-              tarefas, foque com Pomodoro, e maximize sua eficiência. 
+            <p className="max-w-sm text-sm text-neutral-500">
+              Uma central de produtividade para desenvolvedores.
             </p>
           </div>
 
-          <div className="flex flex-col gap-10 md:flex-row md:gap-16 px-6">
+          <div className="flex flex-col gap-10 md:flex-row md:gap-16">
             <div>
               <h3 className="mb-4 text-base font-semibold">Redes Sociais</h3>
-              <div className="flex flex-wrap gap-5 justify-center">
+              <div className="flex justify-center gap-4 md:justify-start">
                 {[
                   {
                     icon: Youtube,
@@ -196,7 +145,6 @@ export default function LandingPage() {
                   {
                     icon: Linkedin,
                     link: "https://www.linkedin.com/in/matheus-chiodi/",
-                    target: "_blank",
                   },
                 ].map((item, idx) => (
                   <a
@@ -218,14 +166,16 @@ export default function LandingPage() {
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-muted-foreground text-center text-xs"
         >
-          &copy; {new Date().getFullYear()} MChiodi News. Todos os direitos
+          &copy; {new Date().getFullYear()} MChiodi Focus. Todos os direitos
           reservados.
         </motion.div>
-      </footer>
+      </motion.footer>
+      <DonationButton />
+      <BackToTop />
     </motion.div>
   );
 }

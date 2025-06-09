@@ -112,7 +112,8 @@ export function NotesApp() {
         <div className="mb-3 flex gap-2">
           <button
             onClick={exportBackup}
-            className="flex flex-1 items-center justify-center gap-1 rounded bg-blue-700 px-2 py-1 text-xs hover:brightness-90"
+            className="flex flex-1 items-center justify-center gap-1 rounded px-2 py-1 text-xs hover:brightness-90"
+            style={{ backgroundColor: "var(--accent-color)" }}
           >
             <Download size={14} />
           </button>
@@ -131,7 +132,8 @@ export function NotesApp() {
           />
           <button
             onClick={createNote}
-            className="rounded bg-blue-600 px-2 py-1 text-sm transition hover:brightness-90"
+            className="rounded px-2 py-1 text-sm transition hover:brightness-90"
+            style={{ backgroundColor: "var(--accent-color)" }}
           >
             <Plus size={16} />
           </button>
@@ -143,7 +145,7 @@ export function NotesApp() {
               onClick={() => setSelectedFolder(f)}
               className={`rounded px-2 py-1 text-xs ${
                 selectedFolder === f
-                  ? "bg-blue-600"
+                  ? "bg-[--accent-color]"
                   : "bg-neutral-800 hover:bg-neutral-700"
               }`}
             >
@@ -164,7 +166,7 @@ export function NotesApp() {
               }}
               className={`cursor-pointer rounded px-3 py-2 ${
                 note.id === activeNote
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[--accent-color] text-white"
                   : "bg-neutral-800"
               }`}
             >
