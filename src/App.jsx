@@ -67,7 +67,6 @@ export default function DevHub() {
     }));
   };
 
-  const [layoutMode, setLayoutMode] = useState("auto");
 
   const visibleWindows = apps.filter(
     (app) => openApps[app.id]?.open && openApps[app.id]?.visible,
@@ -75,54 +74,7 @@ export default function DevHub() {
 
   let layoutClass = "grid-cols-1";
 
-  if (layoutMode === "side-by-side") {
-    layoutClass = "grid grid-cols-2";
-  } else if (layoutMode === "three-stack") {
-    layoutClass = "grid grid-cols-2 auto-rows-[minmax(250px,_1fr)]";
-  } else if (layoutMode === "grid-2x2") {
-    layoutClass = "grid grid-cols-2 grid-rows-2";
-  } else {
-    layoutClass =
-      {
-        1: "grid-cols-1",
-        2: "grid-cols-2",
-        3: "grid-cols-2 auto-rows-[minmax(250px,_1fr)]",
-        4: "grid-cols-2 grid-rows-2",
-      }[visibleWindows.length] || "grid-cols-1";
-  }
-
-  useEffect(() => {
-    const handleShortcut = (e) => {
-      const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-      const ctrlOrCmd = isMac ? e.metaKey : e.ctrlKey;
-
-      if (!ctrlOrCmd) return;
-
-      switch (e.key) {
-        case "1":
-          setLayoutMode("side-by-side");
-          showToast("Layout: Lado a lado ativado");
-          break;
-        case "2":
-          setLayoutMode("three-stack");
-          showToast("Layout: 2 cima, 1 baixo");
-          break;
-        case "3":
-          setLayoutMode("grid-2x2");
-          showToast("Layout: Grade 2x2 ativado");
-          break;
-        case "0":
-          setLayoutMode("auto");
-          showToast("Layout: Automático ativado");
-          break;
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener("keydown", handleShortcut);
-    return () => window.removeEventListener("keydown", handleShortcut);
-  }, []);
+  
 
   const [toastMessage, setToastMessage] = useState("");
   const showToast = (message) => {
@@ -138,9 +90,6 @@ export default function DevHub() {
       {/* Fundo escuro com blur */}
       <div className="absolute inset-0 z-0 bg-black/40 backdrop-blur-md" />
 
-      {/* Controle de layout */}
-      <LayoutControl setLayoutMode={setLayoutMode} showToast={showToast} />
-
       {/* Gerenciador de Janelas */}
       <WindowManager
         apps={apps}
@@ -148,8 +97,6 @@ export default function DevHub() {
         closeApp={closeApp}
         minimizeApp={minimizeApp}
         toggleMaximize={toggleMaximize}
-        layoutClass={layoutClass}
-        layoutMode={layoutMode}
       />
 
       {/* Dock */}

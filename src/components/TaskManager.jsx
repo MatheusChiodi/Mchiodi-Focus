@@ -133,7 +133,11 @@ export function TaskManager() {
           onClick={addTask}
           className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
         >
-          <Plus />
+          {editing ? (
+            <Edit3 size={16} className="inline-block" />
+          ) : (
+            <Plus size={16} className="inline-block" />
+          )}
         </button>
       </div>
 
@@ -153,7 +157,7 @@ export function TaskManager() {
         ))}
       </div>
 
-      <ul className="space-y-3">
+      <ul className="h-[150px] space-y-3 overflow-auto">
         {filteredTasks.length > 0 ? (
           filteredTasks.map((task) => (
             <li
@@ -181,10 +185,10 @@ export function TaskManager() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => startEdit(task)}>
-                    <Edit3 size={16} />
+                    <Edit3 size={16} className="hover:text-yellow-500" />
                   </button>
                   <button onClick={() => deleteTask(task.id)}>
-                    <Trash2 size={16} />
+                    <Trash2 size={16} className="hover:text-red-500" />
                   </button>
                 </div>
               </div>

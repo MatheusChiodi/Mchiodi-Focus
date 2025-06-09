@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 
 import { TaskManager } from "../components/TaskManager";
+import { PomodoroTimer } from "../components/PomodoroTimer";
+import { YoutubePlayer } from "../components/YoutubePlayer";
 
 export const apps = [
   {
@@ -21,7 +23,7 @@ export const apps = [
     id: "pomodoro",
     icon: <Timer size={22}/>,
     name: "Pomodoro",
-    component: () => <div className="p-6 text-white">🕒 Pomodoro em breve!</div>,
+    component: () => PomodoroTimer(),
   },
   {
     id: "notes",
@@ -33,7 +35,7 @@ export const apps = [
     id: "youtube",
     icon: <Youtube size={22}/>,
     name: "YouTube",
-    component: () => <div className="p-6 text-white">📺 YouTube em breve!</div>,
+    component: () => YoutubePlayer(),
   },
   {
     id: "calendar",
