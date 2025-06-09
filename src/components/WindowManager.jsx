@@ -1,6 +1,13 @@
 import { MacWindow } from "./MacWindow";
 
-export function WindowManager({ apps, openApps, closeApp, minimizeApp }) {
+export function WindowManager({
+  apps,
+  openApps,
+  closeApp,
+  minimizeApp,
+  updateSettings,
+  settings,
+}) {
   const openWindows = apps.filter((app) => openApps[app.id]?.open);
 
   const visibleWindows = apps.filter(
@@ -30,7 +37,7 @@ export function WindowManager({ apps, openApps, closeApp, minimizeApp }) {
             onClose={() => closeApp(app.id)}
             onMinimize={() => minimizeApp(app.id)}
           >
-            <Component />
+            <Component settings={settings} updateSettings={updateSettings} />
           </MacWindow>
         );
       })}

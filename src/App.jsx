@@ -3,9 +3,41 @@ import { Dock } from "./components/Dock";
 import { Toast } from "./components/Toast";
 import { LayoutControl } from "./components/LayoutControl";
 import { WindowManager } from "./components/WindowManager";
-import { apps } from "./data/apps";
+import { createApps } from "./data/apps";
 
 export default function DevHub() {
+  const [settings, setSettings] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem("settings"));
+      return (
+        saved || {
+          background: "https://mchiodi-focus.vercel.app/background.png",
+          accentColor: "#2563eb",
+          youtubeId: "jfKfPfyJRdk",
+        }
+      );
+    } catch {
+      return {
+        background: "https://mchiodi-focus.vercel.app/background.png",
+        accentColor: "#2563eb",
+        youtubeId: "jfKfPfyJRdk",
+      };
+    }
+  });
+
+  const apps = createApps();
+
+  useEffect(() => {
+    localStorage.setItem("settings", JSON.stringify(settings));
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      settings.accentColor,
+    );
+  }, [settings]);
+
+  const updateSettings = (newSettings) => {
+    setSettings(newSettings);
+  };
   const [openApps, setOpenApps] = useState(() => {
     try {
       const saved = localStorage.getItem("openApps");
@@ -77,8 +109,7 @@ export default function DevHub() {
     <div
       className="backgroundImage max-w-´[1920px] relative mx-auto min-h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat text-white"
       style={{
-        backgroundImage:
-          "url('https://mchiodi-focus.vercel.app/background.png')",
+        backgroundImage: `url('${settings.background}')`,
       }}
     >
       <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
@@ -89,6 +120,8 @@ export default function DevHub() {
         closeApp={closeApp}
         minimizeApp={minimizeApp}
         toggleMaximize={toggleMaximize}
+        settings={settings}
+        updateSettings={updateSettings}
       />
       <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 

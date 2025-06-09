@@ -2,8 +2,9 @@ import { useRef, useState } from "react";
 import YouTube from "react-youtube";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
-export function YoutubePlayer() {
-  const [videoId, setVideoId] = useState("jfKfPfyJRdk");
+export function YoutubePlayer({ defaultVideoId = "jfKfPfyJRdk", settings }) {
+  const startId = settings?.youtubeId || defaultVideoId;
+  const [videoId, setVideoId] = useState(startId);
   const [input, setInput] = useState("");
   const [volume, setVolume] = useState(50);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -88,7 +89,8 @@ export function YoutubePlayer() {
         />
         <button
           onClick={handleChangeVideo}
-          className="rounded-md bg-blue-600 px-4 py-2 text-white shadow-md transition hover:bg-blue-700"
+          className="rounded-md px-4 py-2 text-white shadow-md transition"
+          style={{ backgroundColor: 'var(--accent-color)' }}
         >
           Trocar vídeo
         </button>
@@ -120,7 +122,8 @@ export function YoutubePlayer() {
             max="100"
             value={volume}
             onChange={handleVolumeChange}
-            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/30 accent-blue-500 transition"
+            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/30 transition"
+            style={{ accentColor: 'var(--accent-color)' }}
           />
         </div>
       </div>
