@@ -56,7 +56,7 @@ export function DonationButton() {
               <div className="flex flex-col items-center justify-center">
                 <div className="mb-4 rounded-xl bg-white p-4">
                   <img
-                    src="/public/pixicon.png"
+                    src="https://mchiodi-focus.vercel.app/pixicon.png"
                     alt="QR Code LivePix"
                     className="h-48 w-48"
                   />
