@@ -110,7 +110,7 @@ export function TaskManager() {
         🧾 Lista de Tarefas
       </h2>
 
-      <div className="mb-4 flex gap-2">
+      <div className="mb-4 flex flex-col md:flex-row gap-2">
         <input
           type="text"
           placeholder={
@@ -120,25 +120,27 @@ export function TaskManager() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <select
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          className="rounded-lg border border-neutral-600 bg-neutral-800 px-3 py-2 text-white"
-        >
-          <option value="low">Baixa</option>
-          <option value="normal">Normal</option>
-          <option value="high">Alta</option>
-        </select>
-        <button
-          onClick={addTask}
-          className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
-        >
-          {editing ? (
-            <Edit3 size={16} className="inline-block" />
-          ) : (
-            <Plus size={16} className="inline-block" />
-          )}
-        </button>
+        <div className="md:w-[200px] flex items-center gap-2">
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-3 py-2 text-white"
+          >
+            <option value="low">Baixa</option>
+            <option value="normal">Normal</option>
+            <option value="high">Alta</option>
+          </select>
+          <button
+            onClick={addTask}
+            className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
+          >
+            {editing ? (
+              <Edit3 size={16} className="inline-block" />
+            ) : (
+              <Plus size={16} className="inline-block" />
+            )}
+          </button>
+        </div>
       </div>
 
       <div className="mb-6 flex justify-center gap-2">
