@@ -8,13 +8,16 @@ export function MacWindow({
   onMinimize,
   onMaximize,
   maximized,
+  layoutMode,
 }) {
   if (!visible) return null;
 
+  const isAuto = layoutMode === "auto";
+
   return (
     <motion.div
-      drag
-      dragConstraints={{ top: -200, bottom: 500, left: -500, right: 500 }}
+      drag={isAuto}
+      dragConstraints={isAuto ? { top: -200, bottom: 500, left: -500, right: 500 } : false}
       dragElastic={0.15}
       dragMomentum={false}
       initial={{ opacity: 0, scale: 0.98, y: 20 }}
@@ -22,8 +25,8 @@ export function MacWindow({
       exit={{ opacity: 0, scale: 0.95, y: -20 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`${
-        maximized ? "h-[85vh] w-[95vw]" : "h-[55vh] w-[60vw]"
-      } absolute cursor-move overflow-hidden rounded-xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-0 shadow-2xl backdrop-blur-xl`}
+        maximized ? "h-[85vh] w-[95vw]" : isAuto ? "h-[55vh] w-[60vw]" : "h-full w-full"
+      } ${isAuto ? "absolute cursor-move" : ""} overflow-hidden rounded-xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-0 shadow-2xl backdrop-blur-xl`}
     >
       {/* Barra superior */}
       <div className="flex items-center justify-between border-b border-neutral-700 bg-neutral-800/60 px-4 py-3">

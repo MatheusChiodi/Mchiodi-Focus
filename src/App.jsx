@@ -159,6 +159,7 @@ export default function DevHub() {
         minimizeApp={minimizeApp}
         toggleMaximize={toggleMaximize}
         layoutClass={layoutClass}
+        layoutMode={layoutMode}
       />
 
       {/* Dock */}

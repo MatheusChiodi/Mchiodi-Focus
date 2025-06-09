@@ -7,6 +7,7 @@ export function WindowManager({
   minimizeApp,
   toggleMaximize,
   layoutClass,
+  layoutMode,
 }) {
   const visibleWindows = apps.filter(
     (app) => openApps[app.id]?.open && openApps[app.id]?.visible
@@ -24,6 +25,7 @@ export function WindowManager({
             title={app.name}
             visible={true}
             maximized={isMaximized}
+            layoutMode={layoutMode}
             onClose={() => closeApp(app.id)}
             onMinimize={() => minimizeApp(app.id)}
             onMaximize={() => toggleMaximize(app.id)}
