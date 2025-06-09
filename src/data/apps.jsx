@@ -13,6 +13,7 @@ import { PomodoroTimer } from "../components/PomodoroTimer";
 import { YoutubePlayer } from "../components/YoutubePlayer";
 import { CalendarApp } from "../components/CalendarApp";
 import { NotesApp } from "../components/NotesApp";
+import { GoalsApp } from "../components/GoalsApp";
 
 export const apps = [
   {
@@ -49,7 +50,7 @@ export const apps = [
     id: "goals",
     icon: <Target size={22} />,
     name: "Metas",
-    component: () => <div className="p-6 text-white">🎯 Metas em breve!</div>,
+    component: () => GoalsApp(),
   },
   {
     id: "settings",
