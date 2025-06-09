@@ -67,15 +67,6 @@ export default function DevHub() {
     }));
   };
 
-
-  const visibleWindows = apps.filter(
-    (app) => openApps[app.id]?.open && openApps[app.id]?.visible,
-  );
-
-  let layoutClass = "grid-cols-1";
-
-  
-
   const [toastMessage, setToastMessage] = useState("");
   const showToast = (message) => {
     setToastMessage(message);

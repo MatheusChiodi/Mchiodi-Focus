@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { Play, Pause, Volume2 } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 export function YoutubePlayer() {
   const [videoId, setVideoId] = useState("jfKfPfyJRdk");
   const [input, setInput] = useState("");
   const [volume, setVolume] = useState(50);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [muted, setMuted] = useState(false);
   const playerRef = useRef(null);
 
   const extractVideoId = (url) => {
@@ -14,7 +15,7 @@ export function YoutubePlayer() {
       const parsed = new URL(url);
       return parsed.searchParams.get("v") || parsed.pathname.split("/").pop();
     } catch {
-      return url; // Se for só o ID
+      return url;
     }
   };
 
@@ -22,6 +23,7 @@ export function YoutubePlayer() {
     const id = extractVideoId(input.trim());
     setVideoId(id);
     setIsPlaying(true);
+    setInput("");
   };
 
   const onReady = (event) => {
@@ -46,11 +48,24 @@ export function YoutubePlayer() {
     const newVolume = parseInt(e.target.value, 10);
     setVolume(newVolume);
     playerRef.current?.setVolume(newVolume);
+    if (newVolume > 0) setMuted(false);
+  };
+
+  const toggleMute = () => {
+    const player = playerRef.current;
+    if (!player) return;
+
+    if (muted) {
+      player.unMute();
+    } else {
+      player.mute();
+    }
+    setMuted(!muted);
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950/80 p-6 shadow-2xl backdrop-blur-xl">
-      <div className="aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-neutral-800/20 shadow-2xl backdrop-blur-md">
+    <div className="relative mx-auto w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
+      <div className="aspect-video w-full max-h-[250px] overflow-hidden rounded-2xl border border-white/10 bg-black shadow-inner">
         <YouTube
           videoId={videoId}
           opts={{
@@ -63,11 +78,11 @@ export function YoutubePlayer() {
         />
       </div>
 
-      <div className="flex w-full max-w-2xl flex-col gap-3 sm:flex-row mt-10">
+      <div className="mt-6 flex flex-col gap-4 sm:flex-row">
         <input
           type="text"
           placeholder="Cole o link ou ID do vídeo do YouTube"
-          className="flex-1 rounded-md border border-white/10 bg-neutral-800/70 px-4 py-2 text-white outline-none backdrop-blur-md placeholder:text-neutral-400 focus:ring-2 focus:ring-blue-500"
+          className="flex-1 rounded-md border border-white/10 bg-neutral-800/70 px-4 py-2 text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
@@ -77,6 +92,37 @@ export function YoutubePlayer() {
         >
           Trocar vídeo
         </button>
+      </div>
+
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <button
+          onClick={togglePlay}
+          className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+        >
+          {isPlaying ? <Pause size={22} /> : <Play size={22} />}
+        </button>
+
+        <div className="flex w-full items-center gap-3">
+          <button
+            onClick={toggleMute}
+            className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20"
+          >
+            {muted || volume === 0 ? (
+              <VolumeX size={22} />
+            ) : (
+              <Volume2 size={22} />
+            )}
+          </button>
+
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/30 accent-blue-500 transition"
+          />
+        </div>
       </div>
     </div>
   );

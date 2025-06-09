@@ -1,19 +1,23 @@
 import { MacWindow } from "./MacWindow";
 
-export function WindowManager({
-  apps,
-  openApps,
-  closeApp,
-  minimizeApp,
-  toggleMaximize,
-}) {
+export function WindowManager({ apps, openApps, closeApp, minimizeApp }) {
+  const openWindows = apps.filter((app) => openApps[app.id]?.open);
+
   const visibleWindows = apps.filter(
-    (app) => openApps[app.id]?.open && openApps[app.id]?.visible
+    (app) => openApps[app.id]?.open && openApps[app.id]?.visible,
   );
 
+  const isSingleVisible = visibleWindows.length === 1;
+
   return (
-    <main className={`relative z-10 grid gap-4 p-6 md:grid-cols-2`}>
-      {visibleWindows.map((app) => {
+    <main
+      className={`relative z-10 mt-[-25px] p-6 ${
+        isSingleVisible
+          ? "flex flex-col items-center justify-center"
+          : "grid gap-4 md:grid-cols-2"
+      }`}
+    >
+      {openWindows.map((app) => {
         const isMaximized = openApps[app.id]?.maximized;
         const Component = app.component;
 
@@ -21,11 +25,10 @@ export function WindowManager({
           <MacWindow
             key={app.id}
             title={app.name}
-            visible={true}
+            visible={openApps[app.id]?.visible}
             maximized={isMaximized}
             onClose={() => closeApp(app.id)}
             onMinimize={() => minimizeApp(app.id)}
-            onMaximize={() => toggleMaximize(app.id)}
           >
             <Component />
           </MacWindow>
