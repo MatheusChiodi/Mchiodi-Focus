@@ -15,7 +15,7 @@ export const apps = [
     id: "tasks",
     icon: <CheckSquare size={22}/>,
     name: "Tarefas",
-    component: TaskManager,
+    component: () => TaskManager(),
   },
   {
     id: "pomodoro",

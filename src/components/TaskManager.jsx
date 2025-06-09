@@ -1,15 +1,7 @@
 import { useState, useEffect } from "react";
-import { Plus } from "lucide-react";
-import { TaskItem } from "./TaskItem";
+import { Plus, Trash2, Edit3, Calendar, Paperclip, Link } from "lucide-react";
 
-export function TaskManager({
-  activeApp,
-  setActiveApp,
-  visible,
-  setVisible,
-  maximized,
-  setMaximized,
-}) {
+export function TaskManager() {
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem("tasks");
     return saved ? JSON.parse(saved) : [];
@@ -18,6 +10,8 @@ export function TaskManager({
   const [filter, setFilter] = useState("all");
   const [priority, setPriority] = useState("normal");
   const [editing, setEditing] = useState(null);
+  const [subtaskInput, setSubtaskInput] = useState("");
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -42,6 +36,10 @@ export function TaskManager({
           text: trimmedInput,
           done: false,
           priority,
+          subtasks: [],
+          date: "",
+          attachment: "",
+          link: "",
         },
       ]);
     }
@@ -50,14 +48,54 @@ export function TaskManager({
     setPriority("normal");
   };
 
-  const toggleTask = (id) => {
+  const addSubtask = (taskId) => {
+    if (!subtaskInput.trim()) return;
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+      prev.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              subtasks: [
+                ...task.subtasks,
+                { id: Date.now(), text: subtaskInput, done: false },
+              ],
+            }
+          : task,
+      ),
     );
+    setSubtaskInput("");
+    setSelectedTaskId(taskId);
+  };
+
+  const toggleTask = (id, subtaskId = null) => {
+    if (subtaskId !== null) {
+      setTasks((prev) =>
+        prev.map((task) =>
+          task.id === id
+            ? {
+                ...task,
+                subtasks: task.subtasks.map((st) =>
+                  st.id === subtaskId ? { ...st, done: !st.done } : st,
+                ),
+              }
+            : task,
+        ),
+      );
+    } else {
+      setTasks((prev) =>
+        prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+      );
+    }
   };
 
   const deleteTask = (id) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const startEdit = (task) => {
+    setInput(task.text);
+    setPriority(task.priority);
+    setEditing(task);
   };
 
   const filteredTasks = tasks.filter((task) => {
@@ -66,57 +104,17 @@ export function TaskManager({
     return true;
   });
 
-  const startEdit = (task) => {
-    setInput(task.text);
-    setPriority(task.priority);
-    setEditing(task);
-  };
-
-  const isEditing = Boolean(editing);
-
-  const handleWindowButton = (type) => {
-    if (type === "red") {
-      setActiveApp(null);
-      setVisible(false);
-    } else if (type === "yellow") {
-      setVisible(false);
-    } else if (type === "green") {
-      setMaximized((prev) => !prev);
-      setVisible(true);
-    }
-  };
-
-  if (!visible) return null;
-
   return (
-    <div
-      className={`w-full ${maximized ? "h-screen px-12" : "max-w-2xl"} mx-auto mt-12 rounded-2xl border border-neutral-700 bg-neutral-950/80 p-6 shadow-2xl backdrop-blur-xl`}
-    >
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-white">
-          🧾 Lista de Tarefas
-        </h2>
-        <div className="flex space-x-2">
-          <button
-            onClick={() => handleWindowButton("red")}
-            className="h-3 w-3 rounded-full bg-red-500 transition hover:scale-110"
-          ></button>
-          <button
-            onClick={() => handleWindowButton("yellow")}
-            className="h-3 w-3 rounded-full bg-yellow-500 transition hover:scale-110"
-          ></button>
-          <button
-            onClick={() => handleWindowButton("green")}
-            className="h-3 w-3 rounded-full bg-green-500 transition hover:scale-110"
-          ></button>
-        </div>
-      </div>
+    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-neutral-950/80 p-6 shadow-2xl backdrop-blur-xl">
+      <h2 className="mb-4 text-xl font-semibold text-white">
+        🧾 Lista de Tarefas
+      </h2>
 
       <div className="mb-4 flex gap-2">
         <input
           type="text"
           placeholder={
-            isEditing ? "Editando tarefa..." : "Digite uma nova tarefa..."
+            editing ? "Editando tarefa..." : "Digite uma nova tarefa..."
           }
           className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={input}
@@ -133,7 +131,7 @@ export function TaskManager({
         </select>
         <button
           onClick={addTask}
-          className={`rounded-lg px-4 py-2 text-white transition ${isEditing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
+          className={`rounded-lg px-4 py-2 text-white transition ${editing ? "bg-yellow-500 hover:bg-yellow-400" : "bg-blue-500 hover:bg-blue-400"}`}
         >
           <Plus />
         </button>
@@ -158,13 +156,81 @@ export function TaskManager({
       <ul className="space-y-3">
         {filteredTasks.length > 0 ? (
           filteredTasks.map((task) => (
-            <TaskItem
+            <li
               key={task.id}
-              task={task}
-              onToggle={toggleTask}
-              onDelete={deleteTask}
-              onEdit={startEdit}
-            />
+              className="flex flex-col gap-2 rounded-lg bg-neutral-800 p-4 text-white shadow"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={task.done}
+                    onChange={() => toggleTask(task.id)}
+                    className="mr-2"
+                  />
+                  <span
+                    className={task.done ? "text-neutral-500 line-through" : ""}
+                  >
+                    {task.text}
+                  </span>
+                  <span
+                    className={`ml-2 rounded-full px-2 py-1 text-xs ${task.priority === "high" ? "bg-red-500" : task.priority === "normal" ? "bg-yellow-500" : "bg-green-500"}`}
+                  >
+                    {task.priority}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => startEdit(task)}>
+                    <Edit3 size={16} />
+                  </button>
+                  <button onClick={() => deleteTask(task.id)}>
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Subtarefas */}
+              {task.subtasks && task.subtasks.length > 0 && (
+                <ul className="ml-4 space-y-1">
+                  {task.subtasks.map((st) => (
+                    <li key={st.id} className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={st.done}
+                        onChange={() => toggleTask(task.id, st.id)}
+                      />
+                      <span
+                        className={
+                          st.done ? "text-neutral-500 line-through" : ""
+                        }
+                      >
+                        {st.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {/* Adicionar subtask */}
+              <div className="mt-2 flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Adicionar subtarefa"
+                  className="flex-1 rounded bg-neutral-700 px-3 py-1 text-sm text-white"
+                  value={selectedTaskId === task.id ? subtaskInput : ""}
+                  onChange={(e) => {
+                    setSubtaskInput(e.target.value);
+                    setSelectedTaskId(task.id);
+                  }}
+                />
+                <button
+                  onClick={() => addSubtask(task.id)}
+                  className="rounded bg-blue-600 px-3 py-1 text-sm text-white hover:bg-blue-500"
+                >
+                  Add
+                </button>
+              </div>
+            </li>
           ))
         ) : (
           <li className="py-6 text-center text-neutral-500">

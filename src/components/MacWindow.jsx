@@ -25,7 +25,7 @@ export function MacWindow({
       exit={{ opacity: 0, scale: 0.95, y: -20 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`${
-        maximized ? "h-[85vh] w-[95vw]" : isAuto ? "h-[55vh] w-[60vw]" : "h-full w-full"
+        maximized ? "h-[85vh] w-[95vw]" : isAuto ? "h-[85vh] w-[80%]" : "h-full w-full"
       } ${isAuto ? "absolute cursor-move" : ""} overflow-hidden rounded-xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-0 shadow-2xl backdrop-blur-xl`}
     >
       {/* Barra superior */}
@@ -42,11 +42,7 @@ export function MacWindow({
             className="h-3 w-3 rounded-full bg-yellow-400 shadow-md transition-transform hover:scale-110"
             title="Minimizar"
           />
-          <button
-            onClick={onMaximize}
-            className="h-3 w-3 rounded-full bg-green-500 shadow-md transition-transform hover:scale-110"
-            title="Maximizar"
-          />
+          
         </div>
 
         <h3 className="text-sm font-medium tracking-wide text-neutral-300">
@@ -57,7 +53,7 @@ export function MacWindow({
       </div>
 
       {/* Conteúdo da Janela */}
-      <div className="custom-scroll max-h-[80vh] overflow-auto p-6">
+      <div className={`custom-scroll overflow-auto p-6 ${maximized ? "w-full" : "max-h-[75vh]"}`}>
         {children}
       </div>
     </motion.div>
