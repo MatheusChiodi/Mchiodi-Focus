@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Loader from "./components/Loader";
 import { Dock } from "./components/Dock";
 import { Toast } from "./components/Toast";
 import { LayoutControl } from "./components/LayoutControl";
@@ -7,6 +9,8 @@ import { createApps } from "./data/apps";
 import { Header } from "./components/Header";
 
 export default function DevHub() {
+  const location = useLocation();
+  const [showLoader, setShowLoader] = useState(false);
   const [settings, setSettings] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("settings"));
@@ -27,6 +31,14 @@ export default function DevHub() {
   });
 
   const apps = createApps();
+
+  useEffect(() => {
+    if (location.state?.fromLanding) {
+      setShowLoader(true);
+      const timer = setTimeout(() => setShowLoader(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
@@ -105,6 +117,10 @@ export default function DevHub() {
   ).length;
 
   const [toastMessage, setToastMessage] = useState("");
+
+  if (showLoader) {
+    return <Loader />;
+  }
 
   return (
     <>
