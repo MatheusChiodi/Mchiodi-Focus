@@ -45,7 +45,7 @@ export function MacWindow({
         <div className="w-16" />
       </div>
 
-      <div className={`p-6 h-[75vh] flex flex-col justify-center overflow-auto`}>
+      <div className={`p-6 md:h-[75vh] flex flex-col justify-center overflow-auto`}>
         {children}
       </div>
     </motion.div>
