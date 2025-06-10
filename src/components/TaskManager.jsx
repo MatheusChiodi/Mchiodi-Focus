@@ -105,12 +105,12 @@ export function TaskManager() {
   });
 
   return (
-    <div className="mt-16 md:mt-0 w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
+    <div className="w-full mx-auto rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">
         🧾 Lista de Tarefas
       </h2>
 
-      <div className="mb-4 flex flex-col gap-2 md:flex-row">
+      <div className="mb-4 flex flex-wrap flex-col gap-2">
         <input
           type="text"
           placeholder={
@@ -120,7 +120,7 @@ export function TaskManager() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="flex items-center gap-2 md:w-[200px]">
+        <div className="flex flex-wrap items-center gap-2 flex-1">
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
@@ -143,7 +143,7 @@ export function TaskManager() {
         </div>
       </div>
 
-      <div className="mb-6 flex justify-center gap-2">
+      <div className="mb-6 flex flex-wrap justify-center gap-2">
         {[
           { key: "all", label: "Todas" },
           { key: "todo", label: "Pendentes" },

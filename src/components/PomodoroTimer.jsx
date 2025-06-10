@@ -82,7 +82,7 @@ export function PomodoroTimer() {
 
   return (
     <motion.div
-      className={`relative w-full max-w-md rounded-xl p-8 text-center shadow-2xl transition-all ${MODES[mode].color}`}
+      className={`relative w-full h-full rounded-xl p-[36px] flex flex-col justify-around text-center shadow-2xl transition-all ${MODES[mode].color}`}
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}

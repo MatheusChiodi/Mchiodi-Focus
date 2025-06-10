@@ -52,7 +52,7 @@ export function Header() {
   return (
     <div className="absolute left-0 top-0 z-20 flex w-full items-center justify-between bg-black/20 px-4 py-2 backdrop-blur-sm">
       <div className="flex items-center gap-2">
-        <img src="/logo.png" alt="Logo" className="h-6 w-6 sm:h-8 sm:w-8" />
+        <img src="logo.png" alt="Logo" className="h-6 w-6 sm:h-8 sm:w-8" />
         <span className="hidden text-sm font-semibold text-white sm:inline">
           Focus
         </span>
@@ -90,6 +90,7 @@ export function Header() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7 }}
+          className="hidden sm:block"
         >
           🕒 {timeString}
         </motion.div>

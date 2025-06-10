@@ -30,12 +30,7 @@ export function createApps() {
       name: "Pomodoro",
       component: PomodoroTimer,
     },
-    {
-      id: "notes",
-      icon: <StickyNote size={22} />,
-      name: "Notas",
-      component: NotesApp,
-    },
+    
     {
       id: "youtube",
       icon: <Youtube size={22} />,

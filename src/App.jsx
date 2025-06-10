@@ -112,42 +112,42 @@ export default function DevHub() {
     }));
   };
 
-  const visibleAppsCount = Object.values(openApps).filter(
-    (app) => app.open && app.visible,
-  ).length;
-
   const [toastMessage, setToastMessage] = useState("");
 
   if (showLoader) {
     return <Loader />;
+  } else {
+    return (
+      <>
+        <Header />
+        <div
+          className="backgroundImage max-w-[1920px] relative mx-auto h-screen w-full overflow-auto bg-cover bg-center bg-no-repeat text-white"
+          style={{
+            backgroundImage: `url('${settings.background}')`,
+          }}
+        >
+          <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
+
+          <WindowManager
+            apps={apps}
+            openApps={openApps}
+            closeApp={closeApp}
+            minimizeApp={minimizeApp}
+            toggleMaximize={toggleMaximize}
+            settings={settings}
+            updateSettings={updateSettings}
+          />
+          <Dock
+            apps={apps}
+            openApps={openApps}
+            handleAppClick={handleAppClick}
+          />
+
+          <Toast message={toastMessage} />
+
+          <div className="h-[100px] w-full" aria-hidden="true" />
+        </div>
+      </>
+    );
   }
-
-  return (
-    <>
-      <Header />
-      <div
-        className="backgroundImage max-w-´[1920px] relative mx-auto h-screen w-full overflow-auto bg-cover bg-center bg-no-repeat text-white"
-        style={{
-          backgroundImage: `url('${settings.background}')`,
-        }}
-      >
-        <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
-
-        <WindowManager
-          apps={apps}
-          openApps={openApps}
-          closeApp={closeApp}
-          minimizeApp={minimizeApp}
-          toggleMaximize={toggleMaximize}
-          settings={settings}
-          updateSettings={updateSettings}
-        />
-        <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
-
-        <Toast message={toastMessage} />
-
-        <div className="h-[100px] w-full" aria-hidden="true" />
-      </div>
-    </>
-  );
 }

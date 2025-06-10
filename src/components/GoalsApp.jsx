@@ -28,7 +28,7 @@ export function GoalsApp() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
+    <div className="mx-auto w-full h-full max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">🎯 Metas</h2>
 
       <div className="mb-4 flex flex-wrap gap-2">

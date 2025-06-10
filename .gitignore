@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/MchiodiFocus-win32-x64
+vite.config.js
+vite.config.js
+vite.config.js

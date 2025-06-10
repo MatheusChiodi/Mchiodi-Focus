@@ -106,7 +106,7 @@ export function NotesApp() {
   const allFolders = ["Todas", ...new Set(notes.map((n) => n.folder))];
 
   return (
-    <div className="flex w-full flex-col gap-4 overflow-auto text-white sm:flex-row">
+    <div className="max-h-[350px] flex w-full flex-col gap-4 overflow-auto text-white sm:flex-row">
       {/* Lateral */}
       <div className="w-full rounded-lg border border-white/10 bg-neutral-900/70 p-2 sm:w-1/3">
         <div className="mb-3 flex gap-2">
@@ -182,13 +182,22 @@ export function NotesApp() {
       </div>
 
       {/* Editor */}
-      <div className="md:h-[60vh] overflow-auto flex w-full flex-col gap-4 rounded-lg border border-white/10 bg-neutral-900/70 p-4 sm:w-2/3">
+      <div className="h-[320px] overflow-auto flex w-full flex-col gap-4 rounded-lg border border-white/10 bg-neutral-900/70 p-4 sm:w-2/3">
         {activeNote ? (
           <>
             <textarea
               value={markdown}
               onChange={(e) => setMarkdown(e.target.value)}
-              className="relative h-40 w-full resize-none rounded bg-neutral-800 p-2 font-mono text-sm"
+              className="h-[320px] w-full resize-none rounded bg-neutral-800 p-2 font-mono text-sm"
+              placeholder="Escreva sua nota aqui..."
+              spellCheck="false"
+              style={{ fontFamily: "monospace" }}
+              autoFocus
+              autoCorrect="off"
+              autoCapitalize="off"
+              autoComplete="off"
+              wrap="off"
+              rows={40}
             />
             <div className="flex flex-wrap gap-2">
               <div className="flex flex-1 items-center">
@@ -339,7 +348,7 @@ export function NotesApp() {
             </div>
           </>
         ) : (
-          <div className="flex w-full items-center justify-center text-center text-neutral-400 md:h-[50vh]">
+          <div className="h-[250px] flex w-full items-center justify-center text-center text-neutral-400">
             Selecione ou crie uma nota
           </div>
         )}

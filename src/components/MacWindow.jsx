@@ -42,7 +42,7 @@ export function MacWindow({
       </div>
 
       <div
-        className="p-3 flex justify-center items-center h-[calc(100%-28px)] overflow-auto"
+        className="p-3 h-[calc(100%-28px)] overflow-auto mx-auto w-full"
       >
         {children}
       </div>
