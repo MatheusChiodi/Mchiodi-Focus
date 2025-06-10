@@ -2,10 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { Youtube, Github, Linkedin } from "lucide-react";
-import { BackToTop } from "./BackToTop";
-import { DonationButton } from "./DonationButton";
+import { BackToTop } from "./BackToTop.js";
+import { DonationButton } from "./DonationButton.jsx";
 import PersistentBackground from "./PersistentBackground.jsx";
 import InstallPrompt from "./InstallPrompt.jsx";
+import Loader from "./Loader.jsx";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -14,23 +15,32 @@ export default function LandingPage() {
     navigate("/app", { state: { fromLanding: true } });
   };
 
-// Detecção melhorada de modo standalone (PWA instalado)
+  // Detecção melhorada de modo standalone (PWA instalado)
   useEffect(() => {
     // Verificar se estamos em modo standalone (PWA instalado)
-    const isStandalone = 
-      window.matchMedia("(display-mode: standalone)").matches || 
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
       window.navigator.standalone === true;
-    
+
     // Verificar se estamos sendo abertos a partir de um atalho na tela inicial
-    const fromHomescreen = 
-      document.referrer.includes('android-app://') || 
-      window.location.search.includes('source=pwa');
-    
+    const fromHomescreen =
+      document.referrer.includes("android-app://") ||
+      window.location.search.includes("source=pwa");
+
     if (isStandalone || fromHomescreen) {
       console.log("App aberto no modo standalone, redirecionando para /app");
       navigate("/app", { replace: true });
     }
   }, [navigate]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <motion.div

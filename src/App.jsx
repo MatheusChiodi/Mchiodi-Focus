@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Loader from "./components/Loader";
 import { Dock } from "./components/Dock";
-import { Toast } from "./components/Toast";
-import { LayoutControl } from "./components/LayoutControl";
 import { WindowManager } from "./components/WindowManager";
 import { createApps } from "./data/apps";
 import { Header } from "./components/Header";
 
 export default function DevHub() {
-  const location = useLocation();
-  const [showLoader, setShowLoader] = useState(true);
   const [settings, setSettings] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("settings"));
@@ -31,7 +25,7 @@ export default function DevHub() {
   });
 
   const apps = createApps();
-  
+
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
     document.documentElement.style.setProperty(
@@ -104,49 +98,31 @@ export default function DevHub() {
     }));
   };
 
-  const [toastMessage, setToastMessage] = useState("");
+  return (
+    <>
+      <Header />
+      <div
+        className="backgroundImage relative mx-auto h-screen w-full max-w-[1920px] overflow-auto bg-cover bg-center bg-no-repeat text-white"
+        style={{
+          backgroundImage: `url('${settings.background}')`,
+        }}
+      >
+        <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowLoader(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+        <WindowManager
+          apps={apps}
+          openApps={openApps}
+          closeApp={closeApp}
+          minimizeApp={minimizeApp}
+          toggleMaximize={toggleMaximize}
+          settings={settings}
+          updateSettings={updateSettings}
+        />
 
-  if (showLoader) {
-    return <Loader />;
-  } else {
-    return (
-      <>
-        <Header />
-        <div
-          className="backgroundImage relative mx-auto h-screen w-full max-w-[1920px] overflow-auto bg-cover bg-center bg-no-repeat text-white"
-          style={{
-            backgroundImage: `url('${settings.background}')`,
-          }}
-        >
-          <div className="absolute inset-0 z-0 bg-[#00000027] backdrop-blur-sm" />
+        <Dock apps={apps} openApps={openApps} handleAppClick={handleAppClick} />
 
-          <WindowManager
-            apps={apps}
-            openApps={openApps}
-            closeApp={closeApp}
-            minimizeApp={minimizeApp}
-            toggleMaximize={toggleMaximize}
-            settings={settings}
-            updateSettings={updateSettings}
-          />
-
-          {!showLoader && (
-            <Dock
-              apps={apps}
-              openApps={openApps}
-              handleAppClick={handleAppClick}
-            />
-          )}
-          <Toast message={toastMessage} />
-
-          <div className="h-[100px] w-full" aria-hidden="true" />
-        </div>
-      </>
-    );
-  }
+        <div className="h-[100px] w-full" aria-hidden="true" />
+      </div>
+    </>
+  );
 }
