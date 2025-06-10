@@ -24,7 +24,7 @@ export function SettingsApp({ settings, updateSettings }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      <h2 className="text-sm font-semibold text-white">
+      <h2 className="text-xl font-semibold text-white">
         ⚙️ Configurações do DevHub
       </h2>
 
