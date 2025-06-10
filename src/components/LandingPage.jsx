@@ -14,6 +14,24 @@ export default function LandingPage() {
     navigate("/app", { state: { fromLanding: true } });
   };
 
+// Detecção melhorada de modo standalone (PWA instalado)
+  useEffect(() => {
+    // Verificar se estamos em modo standalone (PWA instalado)
+    const isStandalone = 
+      window.matchMedia("(display-mode: standalone)").matches || 
+      window.navigator.standalone === true;
+    
+    // Verificar se estamos sendo abertos a partir de um atalho na tela inicial
+    const fromHomescreen = 
+      document.referrer.includes('android-app://') || 
+      window.location.search.includes('source=pwa');
+    
+    if (isStandalone || fromHomescreen) {
+      console.log("App aberto no modo standalone, redirecionando para /app");
+      navigate("/app", { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <motion.div
       className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#0f0f0f] via-[#151515] to-[#0f0f0f] font-sans text-white"

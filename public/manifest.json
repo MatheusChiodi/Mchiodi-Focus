@@ -2,7 +2,7 @@
   "name": "MChiodi Focus",
   "short_name": "MChiodi",
   "description": "Uma central de produtividade para desenvolvedores",
-  "start_url": "/",
+  "start_url": "/#/app",
   "display": "standalone",
   "background_color": "#0f0f0f",
   "theme_color": "#FF5555",
