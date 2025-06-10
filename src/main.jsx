@@ -6,6 +6,22 @@ import "./index.css";
 import App from "./App.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 
+// Improved service worker registration
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
+    try {
+      const registration =
+        await navigator.serviceWorker.register("/service-worker.js");
+      console.log(
+        "ServiceWorker registration successful with scope:",
+        registration.scope,
+      );
+    } catch (error) {
+      console.error("ServiceWorker registration failed:", error);
+    }
+  });
+}
+
 function AnimatedRoutes() {
   const location = useLocation();
   return (

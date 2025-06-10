@@ -5,6 +5,7 @@ import { Youtube, Github, Linkedin } from "lucide-react";
 import { BackToTop } from "./BackToTop";
 import { DonationButton } from "./DonationButton";
 import PersistentBackground from "./PersistentBackground.jsx";
+import InstallPrompt from "./InstallPrompt.jsx";
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -176,6 +177,7 @@ export default function LandingPage() {
       </motion.footer>
       <DonationButton />
       <BackToTop />
+      <InstallPrompt />
     </motion.div>
   );
 }

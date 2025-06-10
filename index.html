@@ -1,31 +1,94 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#FF5555" />
+    <meta
+      name="description"
+      content="Uma central de produtividade para desenvolvedores. Organize suas tarefas, foque com Pomodoro, e maximize sua eficiência."
+    />
 
-    <!-- Ícone do site -->
-    <link rel="icon" type="image/png" href="logo.png" />
+    <!-- iOS meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="MChiodi Focus" />
 
-    <!-- Título e Metadados -->
-    <title>MChiodi Focus | Produtividade sem distração</title>
-    <meta name="description" content="App minimalista e luxuoso de foco e produtividade desenvolvido por Matheus Chiodi." />
-    <meta name="author" content="Matheus Chiodi" />
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/icons/icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/icon-192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="/icons/icon-152x152.png"
+    />
 
-    <!-- SEO e redes sociais -->
-    <meta property="og:title" content="MChiodi Focus" />
-    <meta property="og:description" content="Aumente sua produtividade com estilo. Gerencie foco com o MChiodi Focus." />
-    <meta property="og:image" content="icon.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MChiodi Focus" />
-    <meta name="twitter:description" content="Organize seu foco com eficiência e elegância." />
-    <meta name="twitter:image" content="icon.png" />
+    <!-- Splash screens for iOS -->
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-640x1136.png"
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-750x1334.png"
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-1242x2208.png"
+      media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-1125x2436.png"
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-1536x2048.png"
+      media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-device-pixel-ratio: 2)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-1668x2224.png"
+      media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-device-pixel-ratio: 2)"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      href="/icons/splash-2048x2732.png"
+      media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-device-pixel-ratio: 2)"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>MChiodi Focus</title>
   </head>
-
-  <body >
+  <body>
     <div id="root"></div>
+    <noscript
+      >Você precisa habilitar JavaScript para executar este
+      aplicativo.</noscript
+    >
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
