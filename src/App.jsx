@@ -10,7 +10,7 @@ import { Header } from "./components/Header";
 
 export default function DevHub() {
   const location = useLocation();
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   const [settings, setSettings] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("settings"));
@@ -114,6 +114,11 @@ export default function DevHub() {
 
   const [toastMessage, setToastMessage] = useState("");
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShowLoader(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   if (showLoader) {
     return <Loader />;
   } else {
@@ -121,7 +126,7 @@ export default function DevHub() {
       <>
         <Header />
         <div
-          className="backgroundImage max-w-[1920px] relative mx-auto h-screen w-full overflow-auto bg-cover bg-center bg-no-repeat text-white"
+          className="backgroundImage relative mx-auto h-screen w-full max-w-[1920px] overflow-auto bg-cover bg-center bg-no-repeat text-white"
           style={{
             backgroundImage: `url('${settings.background}')`,
           }}
@@ -137,12 +142,14 @@ export default function DevHub() {
             settings={settings}
             updateSettings={updateSettings}
           />
-          <Dock
-            apps={apps}
-            openApps={openApps}
-            handleAppClick={handleAppClick}
-          />
 
+          {!showLoader && (
+            <Dock
+              apps={apps}
+              openApps={openApps}
+              handleAppClick={handleAppClick}
+            />
+          )}
           <Toast message={toastMessage} />
 
           <div className="h-[100px] w-full" aria-hidden="true" />
