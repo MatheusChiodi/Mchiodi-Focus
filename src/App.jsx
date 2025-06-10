@@ -31,15 +31,7 @@ export default function DevHub() {
   });
 
   const apps = createApps();
-
-  useEffect(() => {
-    if (location.state?.fromLanding) {
-      setShowLoader(true);
-      const timer = setTimeout(() => setShowLoader(false), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [location.state]);
-
+  
   useEffect(() => {
     localStorage.setItem("settings", JSON.stringify(settings));
     document.documentElement.style.setProperty(

@@ -28,14 +28,14 @@ export function GoalsApp() {
   };
 
   return (
-    <div className="mx-auto w-full h-full max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-6 shadow-2xl backdrop-blur-xl">
+    <div className="mx-auto w-full h-full flex flex-col justify-around max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 md:p-6 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">🎯 Metas</h2>
 
       <div className="mb-4 flex flex-wrap gap-2">
         <input
           type="text"
           placeholder="Nova meta..."
-          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
+          className="w-full rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addGoal()}
@@ -71,7 +71,7 @@ export function GoalsApp() {
                   onChange={(e) =>
                     updateProgress(goal.id, Number(e.target.value))
                   }
-                  className="flex-1"
+                  className="w-full"
                 />
                 <span className="w-12 text-right">{goal.progress}%</span>
                 {goal.progress === 100 && (

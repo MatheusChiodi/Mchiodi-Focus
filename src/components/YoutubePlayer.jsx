@@ -65,7 +65,7 @@ export function YoutubePlayer({ defaultVideoId = "jfKfPfyJRdk", settings }) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-2 shadow-2xl backdrop-blur-xl">
+    <div className="mx-auto w-full h-full flex flex-col justify-around max-w-3xl rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-2 shadow-2xl backdrop-blur-xl">
       <div className="aspect-video max-h-[200px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-inner">
         <YouTube
           videoId={videoId}

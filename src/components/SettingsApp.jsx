@@ -19,7 +19,7 @@ export function SettingsApp({ settings, updateSettings }) {
 
   return (
     <motion.div
-      className=" overflow-auto mx-auto flex h-full max-w-lg flex-col justify-around space-y-6 rounded-xl border border-white/10 bg-neutral-900/80 p-3 text-white shadow-2xl backdrop-blur-lg"
+      className="mx-auto flex h-full max-w-lg flex-col justify-around space-y-6 overflow-auto rounded-xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 text-white shadow-2xl backdrop-blur-lg"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}

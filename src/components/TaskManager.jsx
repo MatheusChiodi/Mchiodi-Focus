@@ -105,22 +105,22 @@ export function TaskManager() {
   });
 
   return (
-    <div className="w-full mx-auto rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
+    <div className="relative mx-auto w-full rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
       <h2 className="mb-4 text-xl font-semibold text-white">
         🧾 Lista de Tarefas
       </h2>
 
-      <div className="mb-4 flex flex-wrap flex-col gap-2">
+      <div className="mb-4 flex w-full flex-col flex-wrap gap-2 overflow-hidden">
         <input
           type="text"
           placeholder={
             editing ? "Editando tarefa..." : "Digite uma nova tarefa..."
           }
-          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
+          className="w-full rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <div className="flex flex-wrap items-center gap-2 flex-1">
+        <div className="flex flex-1 flex-wrap items-center gap-2">
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
