@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { CheckCircle2, Trash2 } from "lucide-react";
+import { CheckCircle2, Plus, Trash2 } from "lucide-react";
 
 export function GoalsApp() {
   const [goals, setGoals] = useState(() => {
@@ -28,24 +28,24 @@ export function GoalsApp() {
   };
 
   return (
-    <div className="mx-auto w-full h-full flex flex-col justify-around max-w-3xl rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 md:p-6 shadow-2xl backdrop-blur-xl">
+    <div className="mx-auto flex h-full w-full max-w-3xl flex-col justify-around rounded-2xl border border-neutral-700 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl md:p-6">
       <h2 className="mb-4 text-xl font-semibold text-white">🎯 Metas</h2>
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 flex max-h-[50px] w-full flex-1 flex-wrap gap-2">
         <input
           type="text"
           placeholder="Nova meta..."
-          className="w-full rounded-lg border border-neutral-600 bg-neutral-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white"
+          className="flex-1 rounded-lg border border-neutral-600 bg-neutral-800 px-3 py-2 text-white"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addGoal()}
         />
         <button
           onClick={addGoal}
-          className="w-full md:w-[100px] md:flex-0 rounded-lg px-4 py-2 text-white transition hover:brightness-90"
+          className="rounded-lg px-4 py-2 sm:w-auto w-full text-white transition hover:brightness-90"
           style={{ backgroundColor: "var(--accent-color)" }}
         >
-          Adicionar
+          <Plus className="inline" />
         </button>
       </div>
 
@@ -81,8 +81,10 @@ export function GoalsApp() {
               <div className="h-2 w-full rounded-full bg-neutral-700">
                 <div
                   className="h-full rounded-full"
-                  style={{ width: `${goal.progress}%`, backgroundColor: "var(--accent-color)" }}
-                  
+                  style={{
+                    width: `${goal.progress}%`,
+                    backgroundColor: "var(--accent-color)",
+                  }}
                 />
               </div>
             </li>

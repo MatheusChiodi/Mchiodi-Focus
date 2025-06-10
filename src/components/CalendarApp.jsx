@@ -83,7 +83,7 @@ export function CalendarApp() {
           return (
             <button
               key={day.toString()}
-              className={`relative flex h-12 flex-col items-center justify-start overflow-hidden rounded-md border px-2 py-1 text-sm transition-all hover:border-[var(--accent-color)] ${
+              className={`relative flex h-12 md:h-16 flex-col items-center justify-start overflow-hidden rounded-md border px-2 py-1 text-sm transition-all hover:border-[var(--accent-color)] ${
                 isSameMonth(day, currentMonth)
                   ? "bg-white/10"
                   : "bg-black/10 text-gray-400"
