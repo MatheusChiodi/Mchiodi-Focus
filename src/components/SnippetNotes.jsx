@@ -138,13 +138,6 @@ export function SnippetNotes() {
         </div>
       )}
 
-      {/* Notificação de cópia */}
-      {showCopyNotification && (
-        <div className="animate-fade-in-up absolute right-0 top-0 z-50 flex items-center gap-2 rounded-lg bg-green-500/90 px-4 py-3 text-white shadow-lg">
-          <CheckCircle size={20} />
-          <p>Nota copiada!</p>
-        </div>
-      )}
       <div className="flex flex-1 flex-col justify-between gap-3 rounded-lg bg-neutral-900/50 p-2 backdrop-blur-sm lg:w-1/2">
         <div className="relative mb-4">
           <Search
@@ -160,7 +153,7 @@ export function SnippetNotes() {
           />
         </div>
 
-        <div className="mb-4 flex flex-wrap items-center gap-2 overflow-auto rounded-lg border border-neutral-700 bg-neutral-800/80 p-2 min-h-[50px]">
+        <div className="mb-4 flex min-h-[50px] flex-wrap items-center gap-2 overflow-auto rounded-lg border border-neutral-700 bg-neutral-800/80 p-2">
           <button
             onClick={() => setFilter("")}
             className={`h-[30px] rounded-full border border-transparent px-2 text-sm font-medium shadow-sm transition-all duration-300 ease-in-out ${
@@ -199,7 +192,7 @@ export function SnippetNotes() {
                 onClick={() => edit(n.id)}
                 className={`cursor-pointer rounded-lg border border-transparent p-3 text-sm transition-all duration-300 ${
                   activeId === n.id
-                    ? "bg-[--accent-color] border-[--accent-color]/40"
+                    ? "border-[--accent-color]/40 bg-[--accent-color]"
                     : "bg-neutral-800/80 hover:bg-neutral-700"
                 }`}
               >
@@ -268,21 +261,29 @@ export function SnippetNotes() {
 
             {category && (
               <>
-                <div className="h-[70px] flex items-center overflow-hidden rounded-lg bg-neutral-700/50 px-3 py-3 text-sm text-neutral-300">
+                <div className="flex h-[70px] items-center overflow-hidden rounded-lg bg-neutral-700/50 px-3 py-3 text-sm text-neutral-300">
                   {category}
                 </div>
               </>
             )}
 
-            <div className="max-h-[200px] custom-scrollbar w-full resize-none h-full flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
+            <div className="custom-scrollbar h-full max-h-[200px] w-full flex-grow resize-none overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
               {text}
             </div>
-            <button
-              onClick={copyToClipboard}
-              className="text-md flex items-center justify-center gap-2 rounded-lg bg-[--accent-color] px-4 py-2 transition-all duration-300 hover:brightness-90"
-            >
-              <Copy size={16} /> Copiar nota
-            </button>
+
+            {showCopyNotification ? (
+              <button className=" bg-green-500/90 text-white text-md flex items-center justify-center gap-2 rounded-lg px-4 py-2 transition-all duration-300 hover:brightness-90">
+                <CheckCircle size={20} />
+                <p>Nota copiada!</p>
+              </button>
+            ) : (
+              <button
+                onClick={copyToClipboard}
+                className="text-md flex items-center justify-center gap-2 rounded-lg bg-[--accent-color] px-4 py-2 transition-all duration-300 hover:brightness-90"
+              >
+                <Copy size={16} /> Copiar nota
+              </button>
+            )}
           </div>
         ) : (
           <div className="flex h-full w-full flex-col gap-4 rounded-lg border border-neutral-700 bg-neutral-800/80 p-4">
@@ -307,7 +308,7 @@ export function SnippetNotes() {
               placeholder="Texto"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="flex-1 custom-scrollbar w-full resize-none rounded-lg border border-neutral-700 bg-neutral-800/80 p-4 font-mono text-sm transition-all focus:border-[--accent-color] focus:outline-none"
+              className="custom-scrollbar w-full flex-1 resize-none rounded-lg border border-neutral-700 bg-neutral-800/80 p-4 font-mono text-sm transition-all focus:border-[--accent-color] focus:outline-none"
             />
 
             <div className="flex gap-3">
