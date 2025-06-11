@@ -7,26 +7,33 @@ export default function InstallPrompt() {
   const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
-    const dismissed = localStorage.getItem("installPromptDismissed");
-    const oneDay = 1000 * 60 * 60 * 24;
-
-    // Se o usuário recusou nos últimos 24h, não mostrar novamente
-    if (dismissed && Date.now() - Number(dismissed) < oneDay) {
-      return;
-    }
+    console.log("🧪 Registrando listener para beforeinstallprompt");
 
     const handler = (e) => {
       e.preventDefault();
-      console.log("beforeinstallprompt capturado");
+      console.log("✅ Evento beforeinstallprompt capturado");
       setDeferredPrompt(e);
       setShowInstall(true);
     };
 
+    // Certifique-se de registrar ANTES que o evento seja disparado
     window.addEventListener("beforeinstallprompt", handler);
 
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
-    };
+    // Adicione este teste para debug
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      console.log("🔍 App já está instalado ou rodando em modo standalone");
+    } else {
+      console.log("🔍 App está rodando no navegador, elegível para instalação");
+    }
+
+    // Verifique se o navegador suporta PWA
+    if ("serviceWorker" in navigator) {
+      console.log("✅ Navegador suporta Service Worker");
+    } else {
+      console.log("❌ Navegador não suporta Service Worker");
+    }
+
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
   const handleInstallClick = () => {
