@@ -12,6 +12,7 @@ Um super hub de produtividade para desenvolvedores, feito com foco total em perf
 - ✅ Pomodoro Timer com efeitos visuais e histórico
 - ✅ Player do YouTube embutido (música lo-fi por padrão)
 - ✅ Metas, calendário, clima, câmbio e mais
+- ✅ Snippets para salvar códigos e prompts
 - ✅ Design inspirado no macOS (modo janela, dock, maximizar/minimizar)
 - ✅ Funciona no navegador ou como **aplicativo real para Windows**
 
