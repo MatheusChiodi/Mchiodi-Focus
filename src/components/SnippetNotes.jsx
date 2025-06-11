@@ -84,7 +84,7 @@ export function SnippetNotes() {
   );
 
   return (
-    <div className="flex h-full w-full flex-col gap-6 overflow-hidden rounded-lg text-white lg:flex-row">
+    <div className="flex h-full w-full flex-col gap-2 overflow-hidden rounded-lg text-white lg:flex-row">
       {/* Modal de confirmação de exclusão */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
