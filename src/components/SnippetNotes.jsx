@@ -1,5 +1,15 @@
 import { useEffect, useState } from "react";
-import { Plus, Trash2, X, Save, Edit2, Search, AlertTriangle } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  X,
+  Save,
+  Edit2,
+  Search,
+  AlertTriangle,
+  CheckCircle,
+  Copy,
+} from "lucide-react";
 
 export function SnippetNotes() {
   const [notes, setNotes] = useState(() => {
@@ -12,7 +22,8 @@ export function SnippetNotes() {
   const [category, setCategory] = useState("");
   const [filter, setFilter] = useState("");
   const [isViewMode, setIsViewMode] = useState(false);
-  // Estados para o modal de confirmação
+
+  const [showCopyNotification, setShowCopyNotification] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [noteToDelete, setNoteToDelete] = useState(null);
 
@@ -62,13 +73,23 @@ export function SnippetNotes() {
   // Concluir exclusão após confirmação
   const handleDelete = () => {
     if (noteToDelete === null) return;
-    
+
     setNotes(notes.filter((n) => n.id !== noteToDelete));
     if (activeId === noteToDelete) resetForm();
-    
+
     // Fechar o modal
     setShowDeleteModal(false);
     setNoteToDelete(null);
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(text);
+    setShowCopyNotification(true);
+
+    // Esconde a notificação após 2 segundos
+    setTimeout(() => {
+      setShowCopyNotification(false);
+    }, 500);
   };
 
   const filtered = notes.filter(
@@ -84,7 +105,7 @@ export function SnippetNotes() {
   );
 
   return (
-    <div className="flex h-full w-full flex-col gap-2 overflow-auto rounded-lg text-white lg:flex-row">
+    <div className="relative mx-auto flex w-full flex-row flex-wrap rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
       {/* Modal de confirmação de exclusão */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
@@ -93,11 +114,12 @@ export function SnippetNotes() {
               <AlertTriangle className="h-6 w-6" />
               <h3 className="text-lg font-medium">Confirmar exclusão</h3>
             </div>
-            
+
             <p className="mb-6 text-neutral-300">
-              Tem certeza que deseja excluir esta nota? Esta ação não pode ser desfeita.
+              Tem certeza que deseja excluir esta nota? Esta ação não pode ser
+              desfeita.
             </p>
-            
+
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowDeleteModal(false)}
@@ -116,8 +138,15 @@ export function SnippetNotes() {
         </div>
       )}
 
-      <div className="flex w-full flex-col gap-3 rounded-lg bg-neutral-900/50 p-4 backdrop-blur-sm md:w-1/2 lg:w-1/3">
-        <div className="relative">
+      {/* Notificação de cópia */}
+      {showCopyNotification && (
+        <div className="animate-fade-in-up absolute right-0 top-0 z-50 flex items-center gap-2 rounded-lg bg-green-500/90 px-4 py-3 text-white shadow-lg">
+          <CheckCircle size={20} />
+          <p>Nota copiada!</p>
+        </div>
+      )}
+      <div className="flex flex-1 flex-col justify-between gap-3 rounded-lg bg-neutral-900/50 p-2 backdrop-blur-sm lg:w-1/2">
+        <div className="relative mb-4">
           <Search
             size={18}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
@@ -131,50 +160,55 @@ export function SnippetNotes() {
           />
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="mb-4 flex flex-wrap items-center gap-2 overflow-auto rounded-lg border border-neutral-700 bg-neutral-800/80 p-2 min-h-[50px]">
           <button
             onClick={() => setFilter("")}
-            className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${
+            className={`h-[30px] rounded-full border border-transparent px-2 text-sm font-medium shadow-sm transition-all duration-300 ease-in-out ${
               filter === ""
-                ? "shadow-[--accent-color]/20 bg-[--accent-color] shadow-md"
-                : "bg-neutral-700 hover:bg-neutral-600"
+                ? "bg-[--accent-color] text-white shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+                : "border-neutral-600 bg-neutral-800 text-neutral-200 hover:bg-neutral-700 hover:text-white"
             }`}
           >
             Todas
           </button>
+
           {categories.map((c) => (
             <button
               key={c}
               onClick={() => setFilter(c)}
-              className={`rounded-full px-3 py-1.5 text-xs transition-all duration-300 ${
+              className={`h-[30px] rounded-full border border-transparent px-2 text-sm font-medium shadow-sm transition-all duration-300 ease-in-out ${
                 filter === c
-                  ? "shadow-[--accent-color]/20 bg-[--accent-color] shadow-md"
-                  : "bg-neutral-700 hover:bg-neutral-600"
+                  ? "scale-105 bg-[--accent-color] text-white shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
+                  : "border-neutral-600 bg-neutral-800 text-neutral-200 hover:bg-neutral-700 hover:text-white"
               }`}
             >
-              {c}
+              {c.length > 12 ? `${c.substring(0, 12)}...` : c}
             </button>
           ))}
         </div>
 
         {filtered.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center p-8 text-neutral-400">
+          <div className="flex h-[150px] flex-col items-center justify-center p-8 text-center text-neutral-400">
             <p>Nenhuma nota encontrada</p>
           </div>
         ) : (
-          <ul className="custom-scrollbar flex-grow space-y-2 overflow-auto pr-1">
+          <ul className="custom-scrollbar h-[150px] flex-grow space-y-2 overflow-auto p-1">
             {filtered.map((n) => (
               <li
                 key={n.id}
                 onClick={() => edit(n.id)}
                 className={`cursor-pointer rounded-lg border border-transparent p-3 text-sm transition-all duration-300 ${
                   activeId === n.id
-                    ? "bg-[--accent-color]/20 border-[--accent-color]/40"
+                    ? "bg-[--accent-color] border-[--accent-color]/40"
                     : "bg-neutral-800/80 hover:bg-neutral-700"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="truncate font-medium">{n.name}</span>
+                  <span className="truncate font-medium">
+                    {n.name.length > 15
+                      ? n.name.substring(0, 15) + "..."
+                      : n.name}
+                  </span>
                   <button
                     onClick={(e) => confirmDelete(n.id, e)}
                     className="rounded-full p-1 opacity-60 transition-opacity hover:bg-red-500/20 hover:opacity-100"
@@ -187,10 +221,12 @@ export function SnippetNotes() {
                 </div>
                 {n.category && (
                   <div className="mt-1 inline-block rounded-full bg-neutral-700/50 px-2 py-0.5 text-xs text-neutral-300">
-                    {n.category}
+                    {n.category.length > 10
+                      ? n.category.substring(0, 10) + "..."
+                      : n.category}
                   </div>
                 )}
-                <div className="mt-1 line-clamp-2 text-xs text-neutral-400">
+                <div className="mt-1 line-clamp-2 text-xs text-neutral-300">
                   {n.text}
                 </div>
               </li>
@@ -207,12 +243,12 @@ export function SnippetNotes() {
       </div>
 
       {/* Área de edição */}
-      <div className="flex w-full flex-col gap-3 rounded-lg bg-neutral-900/50 p-4 backdrop-blur-sm md:w-1/2 lg:w-2/3">
+      <div className="flex flex-1 flex-col justify-between gap-3 rounded-lg bg-neutral-900/50 p-2 backdrop-blur-sm">
         {isViewMode ? (
-          <div className="flex h-full flex-col">
-            <div className="mb-4 flex items-center justify-between">
+          <div className="flex h-full w-full flex-col justify-center gap-4 rounded-lg border border-neutral-700 bg-neutral-800/80 p-4">
+            <div className="mb-4 flex flex-wrap-reverse items-center justify-between">
               <h2 className="text-xl font-semibold text-[--accent-color]">
-                {name}
+                {name.length > 10 ? name.substring(0, 10) + "..." : name}
               </h2>
               <div className="flex gap-2">
                 <button
@@ -231,31 +267,39 @@ export function SnippetNotes() {
             </div>
 
             {category && (
-              <div className="mb-4 inline-block rounded-full bg-neutral-700/50 px-3 py-1 text-sm text-neutral-300">
-                {category}
-              </div>
+              <>
+                <div className="mb-4 flex items-center overflow-hidden rounded-lg bg-neutral-700/50 px-3 py-3 text-sm text-neutral-300">
+                  {category}
+                </div>
+              </>
             )}
 
-            <div className="custom-scrollbar flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
+            <div className="custom-scrollbar h-[calc(100%-140px)] max-h-[100px] flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
               {text}
             </div>
+            <button
+              onClick={copyToClipboard}
+              className="text-md mt-4 flex items-center justify-center gap-2 rounded-lg bg-[--accent-color] px-4 py-2 transition-all duration-300 hover:brightness-90"
+            >
+              <Copy size={16} /> Copiar nota
+            </button>
           </div>
         ) : (
-          <>
-            <div className="flex flex-col gap-3 md:flex-row">
+          <div className="flex h-full w-full flex-col gap-4 rounded-lg border border-neutral-700 bg-neutral-800/80 p-4">
+            <div className="flex flex-col gap-3">
               <input
                 type="text"
                 placeholder="Nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="flex-grow rounded-lg border border-neutral-700 bg-neutral-800/80 px-4 py-2.5 text-sm transition-all focus:border-[--accent-color] focus:outline-none"
+                className="w-full rounded-lg border border-neutral-700 bg-neutral-800/80 px-4 py-2.5 text-sm transition-all focus:border-[--accent-color] focus:outline-none"
               />
               <input
                 type="text"
                 placeholder="Categoria"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="rounded-lg border border-neutral-700 bg-neutral-800/80 px-4 py-2.5 text-sm transition-all focus:border-[--accent-color] focus:outline-none md:w-1/3"
+                className="h-[40px] rounded-lg border border-neutral-700 bg-neutral-800/80 px-4 py-2.5 text-sm transition-all focus:border-[--accent-color] focus:outline-none"
               />
             </div>
 
@@ -263,7 +307,7 @@ export function SnippetNotes() {
               placeholder="Texto"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="custom-scrollbar h-[calc(100%-140px)] min-h-[200px] resize-none rounded-lg border border-neutral-700 bg-neutral-800/80 p-4 font-mono text-sm transition-all focus:border-[--accent-color] focus:outline-none"
+              className="flex-1 custom-scrollbar w-full resize-none rounded-lg border border-neutral-700 bg-neutral-800/80 p-4 font-mono text-sm transition-all focus:border-[--accent-color] focus:outline-none"
             />
 
             <div className="flex gap-3">
@@ -284,7 +328,7 @@ export function SnippetNotes() {
                 </button>
               )}
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

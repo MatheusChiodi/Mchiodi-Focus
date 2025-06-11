@@ -25,6 +25,12 @@ export function createApps() {
       component: TaskManager,
     },
     {
+      id: "snippets",
+      icon: <StickyNote size={22} />,
+      name: "Notas",
+      component: SnippetNotes,
+    },
+    {
       id: "pomodoro",
       icon: <Timer size={22} />,
       name: "Pomodoro",
@@ -48,12 +54,6 @@ export function createApps() {
       icon: <Target size={22} />,
       name: "Metas",
       component: GoalsApp,
-    },
-    {
-      id: "snippets",
-      icon: <StickyNote size={22} />,
-      name: "Snippets",
-      component: SnippetNotes,
     },
     {
       id: "settings",
