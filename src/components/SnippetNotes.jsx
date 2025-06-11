@@ -246,7 +246,7 @@ export function SnippetNotes() {
       <div className="flex flex-1 flex-col justify-between gap-3 rounded-lg bg-neutral-900/50 p-2 backdrop-blur-sm">
         {isViewMode ? (
           <div className="flex h-full w-full flex-col justify-center gap-4 rounded-lg border border-neutral-700 bg-neutral-800/80 p-4">
-            <div className="mb-4 flex flex-wrap-reverse items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between">
               <h2 className="text-xl font-semibold text-[--accent-color]">
                 {name.length > 10 ? name.substring(0, 10) + "..." : name}
               </h2>
@@ -268,18 +268,18 @@ export function SnippetNotes() {
 
             {category && (
               <>
-                <div className="mb-4 flex items-center overflow-hidden rounded-lg bg-neutral-700/50 px-3 py-3 text-sm text-neutral-300">
+                <div className="h-[70px] flex items-center overflow-hidden rounded-lg bg-neutral-700/50 px-3 py-3 text-sm text-neutral-300">
                   {category}
                 </div>
               </>
             )}
 
-            <div className="custom-scrollbar h-[calc(100%-140px)] max-h-[100px] flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
+            <div className="custom-scrollbar h-full flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
               {text}
             </div>
             <button
               onClick={copyToClipboard}
-              className="text-md mt-4 flex items-center justify-center gap-2 rounded-lg bg-[--accent-color] px-4 py-2 transition-all duration-300 hover:brightness-90"
+              className="text-md flex items-center justify-center gap-2 rounded-lg bg-[--accent-color] px-4 py-2 transition-all duration-300 hover:brightness-90"
             >
               <Copy size={16} /> Copiar nota
             </button>
