@@ -12,7 +12,6 @@ import { TaskManager } from "../components/TaskManager";
 import { PomodoroTimer } from "../components/PomodoroTimer";
 import { YoutubePlayer } from "../components/YoutubePlayer";
 import { CalendarApp } from "../components/CalendarApp";
-import { NotesApp } from "../components/NotesApp";
 import { SnippetNotes } from "../components/SnippetNotes";
 import { GoalsApp } from "../components/GoalsApp";
 import { SettingsApp } from "../components/SettingsApp";
