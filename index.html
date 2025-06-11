@@ -12,15 +12,17 @@
       content="Uma central de produtividade para desenvolvedores. Organize suas tarefas, foque com Pomodoro, e maximize sua eficiência."
     />
 
-    <!-- iOS meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- uporte Android para comportamento de app -->
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Suporte iOS (meta depreciado removido) -->
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
     <meta name="apple-mobile-web-app-title" content="MChiodi Focus" />
 
-    <!-- iOS icons -->
+    <!-- Ícones iOS -->
     <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
     <link
       rel="apple-touch-icon"
@@ -38,7 +40,7 @@
       href="/icons/icon-152x152.png"
     />
 
-    <!-- Splash screens for iOS -->
+    <!-- Splash screens iOS -->
     <link
       rel="apple-touch-startup-image"
       href="/icons/splash-640x1136.png"
@@ -78,17 +80,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/icon.ico" />
 
-    <!-- Manifest -->
+    <!-- Manifest PWA -->
     <link rel="manifest" href="/manifest.json" />
 
     <title>MChiodi Focus</title>
   </head>
   <body>
     <div id="root"></div>
-    <noscript
-      >Você precisa habilitar JavaScript para executar este
-      aplicativo.</noscript
-    >
+    <noscript>
+      Você precisa habilitar JavaScript para executar este aplicativo.
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

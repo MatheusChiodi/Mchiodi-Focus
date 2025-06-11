@@ -154,7 +154,7 @@ export default function LandingPage() {
         >
           <div className="flex flex-col gap-4">
             <h2 className="font-serif text-3xl font-bold transition hover:scale-[1.02]">
-              MChiodi <span className="text-[#FF5555]">Focus</span>
+              MChiodi <span className="text-[#FF5555]">Focusoooo</span>
             </h2>
             <p className="max-w-sm text-sm text-neutral-500">
               Uma central de produtividade para desenvolvedores.
