@@ -274,7 +274,7 @@ export function SnippetNotes() {
               </>
             )}
 
-            <div className="custom-scrollbar h-full flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
+            <div className="max-h-[200px] custom-scrollbar w-full resize-none h-full flex-grow overflow-auto whitespace-pre-wrap rounded-lg border border-neutral-700 bg-neutral-800/50 p-4 font-mono">
               {text}
             </div>
             <button
