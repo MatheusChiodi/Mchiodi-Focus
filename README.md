@@ -1,26 +1,26 @@
-# 🧪 Template Base - Tailwind + Vite + Prettier
+# 🧠 MChiodi Focus
 
-Este projeto é um template base ideal para iniciar aplicações modernas com foco em performance, organização e produtividade no desenvolvimento front-end.  
-Ele vem pronto para usar **Tailwind CSS**, **Prettier** com ordenação automática das classes, **Vite.js**, **Lucide React** e **Framer Motion**.
-
----
-
-## 🚀 Tecnologias Utilizadas
-
-- [**Vite.js**](https://vitejs.dev/) — Build tool extremamente rápido e leve
-- [**Tailwind CSS**](https://tailwindcss.com/) — Framework de CSS utilitário
-- [**Prettier**](https://prettier.io/) + [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) — Formatação automática com ordenação das classes do Tailwind
-- [**Lucide React**](https://lucide.dev/) — Ícones modernos e personalizáveis via React
-- [**Framer Motion**](https://www.framer.com/motion/) — Biblioteca de animações simples e poderosas para React
+Um super hub de produtividade para desenvolvedores, feito com foco total em performance, estética e organização.
 
 ---
 
-## 📦 Como usar este template
+## 🚀 Sobre o projeto
 
-1. Clone o projeto com [`degit`](https://github.com/Rich-Harris/degit):
+**MChiodi Focus** é um aplicativo moderno que centraliza ferramentas essenciais para concentração e organização:
 
-```bash
-npx degit SEU_USUARIO_GITHUB/NOME_DO_REPO nome-do-seu-projeto
-cd nome-do-seu-projeto
-npm install
-npm run dev
+- ✅ Gerenciador de tarefas
+- ✅ Pomodoro Timer com efeitos visuais e histórico
+- ✅ Player do YouTube embutido (música lo-fi por padrão)
+- ✅ Metas, calendário, clima, câmbio e mais
+- ✅ Design inspirado no macOS (modo janela, dock, maximizar/minimizar)
+- ✅ Funciona no navegador ou como **aplicativo real para Windows**
+
+---
+
+## 📦 Tecnologias
+
+- [React JS](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Markdown](https://github.com/remarkjs/react-markdown)
+- [Electron (opcional para .exe)](https://www.electronjs.org/)
