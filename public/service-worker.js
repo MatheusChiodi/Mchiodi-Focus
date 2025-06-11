@@ -1,4 +1,6 @@
-const CACHE_NAME = "mchiodi-focus-v1";
+const CACHE_VERSION = "v2"; // Mude isso a cada alteração significativa no projeto
+const CACHE_NAME = `mchiodi-focus-${CACHE_VERSION}`;
+
 const urlsToCache = [
   "/",
   "/index.html",
@@ -7,72 +9,85 @@ const urlsToCache = [
   "/icons/icon-512x512.png",
 ];
 
-// Install event - cache assets
+// Detecta se está em ambiente local
+const isLocalhost = self.location.hostname === "localhost";
+
+// Install: Cache inicial
 self.addEventListener("install", (event) => {
+  self.skipWaiting(); // Aplica imediatamente
+
+  if (isLocalhost) return; // Evita cache local
+
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Opened cache");
+      console.log("[SW] Cache aberto:", CACHE_NAME);
       return cache.addAll(urlsToCache);
     }),
   );
 });
 
-// Activate event - clean up old caches
+// Activate: Limpa caches antigos
 self.addEventListener("activate", (event) => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (cacheName !== CACHE_NAME) {
+            console.log("[SW] Deletando cache antigo:", cacheName);
             return caches.delete(cacheName);
           }
         }),
-      );
-    }),
+      ),
+    ),
   );
+  self.clients.claim(); // Assuma imediatamente todos os clientes
 });
 
-// Fetch event - serve from cache, fall back to network
+// Fetch: Busca do cache ou rede
 self.addEventListener("fetch", (event) => {
   const requestURL = new URL(event.request.url);
 
-  // Ignora requisições que não sejam HTTP ou HTTPS
-  if (!requestURL.protocol.startsWith("http")) {
-    return;
-  }
+  // Ignora requisições não HTTP
+  if (!requestURL.protocol.startsWith("http")) return;
+
+  // Em desenvolvimento, ignora totalmente o cache
+  if (isLocalhost) return;
 
   event.respondWith(
     caches.match(event.request).then((response) => {
-      if (response) {
-        return response; // retorna do cache
-      }
+      if (response) return response;
 
-      return fetch(event.request).then((networkResponse) => {
-        // Só armazena se for resposta válida
-        if (
-          !networkResponse ||
-          networkResponse.status !== 200 ||
-          networkResponse.type !== "basic"
-        ) {
-          return networkResponse;
-        }
+      return fetch(event.request)
+        .then((networkResponse) => {
+          if (
+            !networkResponse ||
+            networkResponse.status !== 200 ||
+            networkResponse.type !== "basic"
+          ) {
+            return networkResponse;
+          }
 
-        const responseToCache = networkResponse.clone();
+          const responseToCache = networkResponse.clone();
 
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache).catch((err) => {
-            console.warn("Erro ao cachear", event.request.url, err);
+          caches.open(CACHE_NAME).then((cache) => {
+            cache
+              .put(event.request, responseToCache)
+              .catch((err) =>
+                console.warn("Erro ao cachear", event.request.url, err),
+              );
           });
-        });
 
-        return networkResponse;
-      });
+          return networkResponse;
+        })
+        .catch((error) => {
+          console.error("[SW] Erro ao buscar recurso da rede:", error);
+          throw error;
+        });
     }),
   );
 });
 
-// Listen for push notifications
+// Push notification
 self.addEventListener("push", (event) => {
   const title = "MChiodi Focus";
   const options = {

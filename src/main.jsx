@@ -1,28 +1,34 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+import {
+  HashRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import "./index.css";
 import App from "./App.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 
-// Verifica se o app está sendo executado em modo standalone
+// Detecta se o app está rodando como PWA
 const isStandalone =
   window.matchMedia("(display-mode: standalone)").matches ||
   window.navigator.standalone === true;
 
-// Improved service worker registration
-if ("serviceWorker" in navigator) {
+// Service Worker Registration (somente produção)
+if ("serviceWorker" in navigator && import.meta.env.MODE === "production") {
   window.addEventListener("load", async () => {
     try {
       const registration =
         await navigator.serviceWorker.register("/service-worker.js");
       console.log(
-        "ServiceWorker registration successful with scope:",
+        "✅ ServiceWorker registrado com escopo:",
         registration.scope,
       );
     } catch (error) {
-      console.error("ServiceWorker registration failed:", error);
+      console.error("❌ Falha ao registrar o ServiceWorker:", error);
     }
   });
 }
@@ -30,7 +36,7 @@ if ("serviceWorker" in navigator) {
 function AnimatedRoutes() {
   const location = useLocation();
 
-  // Se estiver no modo standalone e tentando acessar a raiz, redireciona para /app
+  // Se for standalone e estiver na raiz, redireciona para /#/app
   if (isStandalone && location.pathname === "/") {
     return <Navigate to="/app" replace />;
   }
