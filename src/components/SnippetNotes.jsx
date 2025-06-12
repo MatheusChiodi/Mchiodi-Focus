@@ -105,7 +105,7 @@ export function SnippetNotes() {
   );
 
   return (
-    <div className="relative mx-auto flex w-full flex-row flex-wrap rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
+    <div className="relative mx-auto flex w-full md:flex-row flex-col flex-wrap rounded-2xl border border-white/10 bg-gradient-to-br from-neutral-900/90 to-neutral-950/90 p-3 shadow-2xl backdrop-blur-xl">
       {/* Modal de confirmação de exclusão */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
